@@ -1,0 +1,937 @@
+site_id,client_id,city,state,lat,lon
+S-A0001,CL-A,Aberdeen,NC,35.15,-79.42
+S-A0002,CL-A,Aberdeen,NC,35.15,-79.42
+S-A0003,CL-A,Albemarle,NC,35.35,-80.17
+S-A0004,CL-A,Albemarle,NC,35.35,-80.17
+S-A0005,CL-A,Albemarle,NC,35.35,-80.17
+S-A0006,CL-A,Asheboro,NC,35.69,-79.8
+S-A0007,CL-A,Asheboro,NC,35.69,-79.8
+S-A0008,CL-A,Asheboro,NC,35.69,-79.8
+S-A0009,CL-A,Asheboro,NC,35.69,-79.8
+S-A0010,CL-A,Asheville,NC,35.56,-82.56
+S-A0011,CL-A,Asheville,NC,35.56,-82.56
+S-A0012,CL-A,Asheville,NC,35.56,-82.56
+S-A0013,CL-A,Asheville,NC,35.56,-82.56
+S-A0014,CL-A,Asheville,NC,35.56,-82.56
+S-A0015,CL-A,Asheville,NC,35.56,-82.56
+S-A0016,CL-A,Benson,NC,35.52,-78.56
+S-A0017,CL-A,Benson,NC,35.52,-78.56
+S-A0018,CL-A,Benson,NC,35.52,-78.56
+S-A0019,CL-A,Benson,NC,35.52,-78.56
+S-A0020,CL-A,Benson,NC,35.52,-78.56
+S-A0021,CL-A,Benson,NC,35.52,-78.56
+S-A0022,CL-A,Benson,NC,35.52,-78.56
+S-A0023,CL-A,Boone,NC,36.2,-81.67
+S-A0024,CL-A,Boone,NC,36.2,-81.67
+S-A0025,CL-A,Brevard,NC,35.24,-82.72
+S-A0026,CL-A,Chapel Hill,NC,35.94,-79.04
+S-A0027,CL-A,Chapel Hill,NC,35.94,-79.04
+S-A0028,CL-A,Chapel Hill,NC,35.94,-79.04
+S-A0029,CL-A,Chapel Hill,NC,35.94,-79.04
+S-A0030,CL-A,Chapel Hill,NC,35.94,-79.04
+S-A0031,CL-A,Chapel Hill,NC,35.94,-79.04
+S-A0032,CL-A,Chapel Hill,NC,35.94,-79.04
+S-A0033,CL-A,Chapel Hill,NC,35.94,-79.04
+S-A0034,CL-A,Chapel Hill,NC,35.94,-79.04
+S-A0035,CL-A,Chapel Hill,NC,35.94,-79.04
+S-A0036,CL-A,Chapel Hill,NC,35.94,-79.04
+S-A0037,CL-A,Chapel Hill,NC,35.94,-79.04
+S-A0038,CL-A,Chapel Hill,NC,35.94,-79.04
+S-A0039,CL-A,Chapel Hill,NC,35.94,-79.04
+S-A0040,CL-A,Chapel Hill,NC,35.94,-79.04
+S-A0041,CL-A,Charlotte,NC,35.31,-80.9
+S-A0042,CL-A,Charlotte,NC,35.31,-80.9
+S-A0043,CL-A,Charlotte,NC,35.31,-80.9
+S-A0044,CL-A,Charlotte,NC,35.31,-80.9
+S-A0045,CL-A,Charlotte,NC,35.31,-80.9
+S-A0046,CL-A,Charlotte,NC,35.31,-80.9
+S-A0047,CL-A,Charlotte,NC,35.31,-80.9
+S-A0048,CL-A,Charlotte,NC,35.31,-80.9
+S-A0049,CL-A,Charlotte,NC,35.31,-80.9
+S-A0050,CL-A,Charlotte,NC,35.31,-80.9
+S-A0051,CL-A,Charlotte,NC,35.31,-80.9
+S-A0052,CL-A,Charlotte,NC,35.31,-80.9
+S-A0053,CL-A,Charlotte,NC,35.31,-80.9
+S-A0054,CL-A,Charlotte,NC,35.31,-80.9
+S-A0055,CL-A,Charlotte,NC,35.31,-80.9
+S-A0056,CL-A,Charlotte,NC,35.31,-80.9
+S-A0057,CL-A,Charlotte,NC,35.31,-80.9
+S-A0058,CL-A,Charlotte,NC,35.31,-80.9
+S-A0059,CL-A,Charlotte,NC,35.31,-80.9
+S-A0060,CL-A,Charlotte,NC,35.31,-80.9
+S-A0061,CL-A,Charlotte,NC,35.31,-80.9
+S-A0062,CL-A,Charlotte,NC,35.31,-80.9
+S-A0063,CL-A,Charlotte,NC,35.31,-80.9
+S-A0064,CL-A,Charlotte,NC,35.31,-80.9
+S-A0065,CL-A,Charlotte,NC,35.31,-80.9
+S-A0066,CL-A,Charlotte,NC,35.31,-80.9
+S-A0067,CL-A,Cherokee,NC,35.47,-83.31
+S-A0068,CL-A,Cherokee,NC,35.47,-83.31
+S-A0069,CL-A,Cherokee,NC,35.47,-83.31
+S-A0070,CL-A,Clinton,NC,35.01,-78.31
+S-A0071,CL-A,Clinton,NC,35.01,-78.31
+S-A0072,CL-A,Columbus,NC,35.25,-82.2
+S-A0073,CL-A,Columbus,NC,35.25,-82.2
+S-A0074,CL-A,Columbus,NC,35.25,-82.2
+S-A0075,CL-A,Creedmoor,NC,36.15,-78.72
+S-A0076,CL-A,Creedmoor,NC,36.15,-78.72
+S-A0077,CL-A,Fayetteville,NC,35.06,-78.94
+S-A0078,CL-A,Fayetteville,NC,35.06,-78.94
+S-A0079,CL-A,Fayetteville,NC,35.06,-78.94
+S-A0080,CL-A,Fayetteville,NC,35.06,-78.94
+S-A0081,CL-A,Fayetteville,NC,35.06,-78.94
+S-A0082,CL-A,Fayetteville,NC,35.06,-78.94
+S-A0083,CL-A,Fayetteville,NC,35.06,-78.94
+S-A0084,CL-A,Fayetteville,NC,35.06,-78.94
+S-A0085,CL-A,Fayetteville,NC,35.06,-78.94
+S-A0086,CL-A,Fayetteville,NC,35.06,-78.94
+S-A0087,CL-A,Franklin,NC,35.16,-83.39
+S-A0088,CL-A,Goldsboro,NC,35.38,-77.97
+S-A0089,CL-A,Goldsboro,NC,35.38,-77.97
+S-A0090,CL-A,Goldsboro,NC,35.38,-77.97
+S-A0091,CL-A,Goldsboro,NC,35.38,-77.97
+S-A0092,CL-A,Goldsboro,NC,35.38,-77.97
+S-A0093,CL-A,Goldsboro,NC,35.38,-77.97
+S-A0094,CL-A,Goldsboro,NC,35.38,-77.97
+S-A0095,CL-A,Greensboro,NC,36.06,-79.84
+S-A0096,CL-A,Greensboro,NC,36.06,-79.84
+S-A0097,CL-A,Greensboro,NC,36.06,-79.84
+S-A0098,CL-A,Greensboro,NC,36.06,-79.84
+S-A0099,CL-A,Greensboro,NC,36.06,-79.84
+S-A0100,CL-A,Greensboro,NC,36.06,-79.84
+S-A0101,CL-A,Greensboro,NC,36.06,-79.84
+S-A0102,CL-A,Greensboro,NC,36.06,-79.84
+S-A0103,CL-A,Greensboro,NC,36.06,-79.84
+S-A0104,CL-A,Greensboro,NC,36.06,-79.84
+S-A0105,CL-A,Greensboro,NC,36.06,-79.84
+S-A0106,CL-A,Greensboro,NC,36.06,-79.84
+S-A0107,CL-A,Greensboro,NC,36.06,-79.84
+S-A0108,CL-A,Greensboro,NC,36.06,-79.84
+S-A0109,CL-A,Greensboro,NC,36.06,-79.84
+S-A0110,CL-A,Greensboro,NC,36.06,-79.84
+S-A0111,CL-A,Greensboro,NC,36.06,-79.84
+S-A0112,CL-A,Greensboro,NC,36.06,-79.84
+S-A0113,CL-A,Greensboro,NC,36.06,-79.84
+S-A0114,CL-A,Greensboro,NC,36.06,-79.84
+S-A0115,CL-A,Greensboro,NC,36.06,-79.84
+S-A0116,CL-A,Greensboro,NC,36.06,-79.84
+S-A0117,CL-A,Greenville,NC,35.58,-77.38
+S-A0118,CL-A,Greenville,NC,35.58,-77.38
+S-A0119,CL-A,Greenville,NC,35.58,-77.38
+S-A0120,CL-A,Greenville,NC,35.58,-77.38
+S-A0121,CL-A,Greenville,NC,35.58,-77.38
+S-A0122,CL-A,Hickory,NC,35.72,-81.32
+S-A0123,CL-A,Hickory,NC,35.72,-81.32
+S-A0124,CL-A,Hickory,NC,35.72,-81.32
+S-A0125,CL-A,Hickory,NC,35.72,-81.32
+S-A0126,CL-A,Hickory,NC,35.72,-81.32
+S-A0127,CL-A,Hickory,NC,35.72,-81.32
+S-A0128,CL-A,Hickory,NC,35.72,-81.32
+S-A0129,CL-A,Hickory,NC,35.72,-81.32
+S-A0130,CL-A,Hickory,NC,35.72,-81.32
+S-A0131,CL-A,Hickory,NC,35.72,-81.32
+S-A0132,CL-A,Hickory,NC,35.72,-81.32
+S-A0133,CL-A,Hickory,NC,35.72,-81.32
+S-A0134,CL-A,Jacksonville,NC,34.78,-77.42
+S-A0135,CL-A,Jacksonville,NC,34.78,-77.42
+S-A0136,CL-A,Jacksonville,NC,34.78,-77.42
+S-A0137,CL-A,Jacksonville,NC,34.78,-77.42
+S-A0138,CL-A,Jacksonville,NC,34.78,-77.42
+S-A0139,CL-A,Jacksonville,NC,34.78,-77.42
+S-A0140,CL-A,Jacksonville,NC,34.78,-77.42
+S-A0141,CL-A,Jacksonville,NC,34.78,-77.42
+S-A0142,CL-A,Jonesville,NC,36.24,-80.82
+S-A0143,CL-A,Jonesville,NC,36.24,-80.82
+S-A0144,CL-A,Jonesville,NC,36.24,-80.82
+S-A0145,CL-A,Jonesville,NC,36.24,-80.82
+S-A0146,CL-A,Laurinburg,NC,34.75,-79.48
+S-A0147,CL-A,Louisburg,NC,36.09,-78.3
+S-A0148,CL-A,Louisburg,NC,36.09,-78.3
+S-A0149,CL-A,Lumberton,NC,34.67,-79.0
+S-A0150,CL-A,Marion,NC,35.7,-82.04
+S-A0151,CL-A,Marion,NC,35.7,-82.04
+S-A0152,CL-A,Monroe,NC,35.01,-80.56
+S-A0153,CL-A,Monroe,NC,35.01,-80.56
+S-A0154,CL-A,Monroe,NC,35.01,-80.56
+S-A0155,CL-A,Monroe,NC,35.01,-80.56
+S-A0156,CL-A,Monroe,NC,35.01,-80.56
+S-A0157,CL-A,Monroe,NC,35.01,-80.56
+S-A0158,CL-A,Monroe,NC,35.01,-80.56
+S-A0159,CL-A,Monroe,NC,35.01,-80.56
+S-A0160,CL-A,Morehead City,NC,34.74,-76.8
+S-A0161,CL-A,Morehead City,NC,34.74,-76.8
+S-A0162,CL-A,Murphy,NC,35.08,-84.04
+S-A0163,CL-A,Murphy,NC,35.08,-84.04
+S-A0164,CL-A,New Bern,NC,35.11,-77.09
+S-A0165,CL-A,Plymouth,NC,35.84,-76.77
+S-A0166,CL-A,Plymouth,NC,35.84,-76.77
+S-A0167,CL-A,Raleigh,NC,35.83,-78.65
+S-A0168,CL-A,Raleigh,NC,35.83,-78.65
+S-A0169,CL-A,Raleigh,NC,35.83,-78.65
+S-A0170,CL-A,Raleigh,NC,35.83,-78.65
+S-A0171,CL-A,Raleigh,NC,35.83,-78.65
+S-A0172,CL-A,Raleigh,NC,35.83,-78.65
+S-A0173,CL-A,Raleigh,NC,35.83,-78.65
+S-A0174,CL-A,Raleigh,NC,35.83,-78.65
+S-A0175,CL-A,Raleigh,NC,35.83,-78.65
+S-A0176,CL-A,Raleigh,NC,35.83,-78.65
+S-A0177,CL-A,Raleigh,NC,35.83,-78.65
+S-A0178,CL-A,Raleigh,NC,35.83,-78.65
+S-A0179,CL-A,Raleigh,NC,35.83,-78.65
+S-A0180,CL-A,Raleigh,NC,35.83,-78.65
+S-A0181,CL-A,Raleigh,NC,35.83,-78.65
+S-A0182,CL-A,Raleigh,NC,35.83,-78.65
+S-A0183,CL-A,Raleigh,NC,35.83,-78.65
+S-A0184,CL-A,Raleigh,NC,35.83,-78.65
+S-A0185,CL-A,Raleigh,NC,35.83,-78.65
+S-A0186,CL-A,Raleigh,NC,35.83,-78.65
+S-A0187,CL-A,Raleigh,NC,35.83,-78.65
+S-A0188,CL-A,Raleigh,NC,35.83,-78.65
+S-A0189,CL-A,Raleigh,NC,35.83,-78.65
+S-A0190,CL-A,Ramseur,NC,40.08,-83.21
+S-A0191,CL-A,Ramseur,NC,40.08,-83.21
+S-A0192,CL-A,Ramseur,NC,40.08,-83.21
+S-A0193,CL-A,Roxboro,NC,36.41,-78.98
+S-A0194,CL-A,Salisbury,NC,35.65,-80.47
+S-A0195,CL-A,Salisbury,NC,35.65,-80.47
+S-A0196,CL-A,Salisbury,NC,35.65,-80.47
+S-A0197,CL-A,Salisbury,NC,35.65,-80.47
+S-A0198,CL-A,Salisbury,NC,35.65,-80.47
+S-A0199,CL-A,Salisbury,NC,35.65,-80.47
+S-A0200,CL-A,Sanford,NC,35.45,-79.13
+S-A0201,CL-A,Sanford,NC,35.45,-79.13
+S-A0202,CL-A,Shallotte,NC,33.97,-78.4
+S-A0203,CL-A,Shallotte,NC,33.97,-78.4
+S-A0204,CL-A,Shelby,NC,35.28,-81.53
+S-A0205,CL-A,Shelby,NC,35.28,-81.53
+S-A0206,CL-A,Shelby,NC,35.28,-81.53
+S-A0207,CL-A,Statesville,NC,35.8,-80.87
+S-A0208,CL-A,Statesville,NC,35.8,-80.87
+S-A0209,CL-A,Statesville,NC,35.8,-80.87
+S-A0210,CL-A,Statesville,NC,35.8,-80.87
+S-A0211,CL-A,Statesville,NC,35.8,-80.87
+S-A0212,CL-A,Statesville,NC,35.8,-80.87
+S-A0213,CL-A,Statesville,NC,35.8,-80.87
+S-A0214,CL-A,Tarboro,NC,35.88,-77.55
+S-A0215,CL-A,Tarboro,NC,35.88,-77.55
+S-A0216,CL-A,Wallace,NC,34.74,-77.97
+S-A0217,CL-A,Whiteville,NC,34.34,-78.71
+S-A0218,CL-A,Wilmington,NC,34.23,-77.87
+S-A0219,CL-A,Wilmington,NC,34.23,-77.87
+S-A0220,CL-A,Wilmington,NC,34.23,-77.87
+S-A0221,CL-A,Wilmington,NC,34.23,-77.87
+S-A0222,CL-A,Wilmington,NC,34.23,-77.87
+S-A0223,CL-A,Wilmington,NC,34.23,-77.87
+S-A0224,CL-A,Wilmington,NC,34.23,-77.87
+S-A0225,CL-A,Wilson,NC,35.73,-77.93
+S-A0226,CL-A,Wilson,NC,35.73,-77.93
+S-A0227,CL-A,Wilson,NC,35.73,-77.93
+S-A0228,CL-A,Wilson,NC,35.73,-77.93
+S-A0229,CL-A,Winston Salem,NC,36.1,-80.26
+S-A0230,CL-A,Winston Salem,NC,36.1,-80.26
+S-A0231,CL-A,Winston Salem,NC,36.1,-80.26
+S-A0232,CL-A,Winston Salem,NC,36.1,-80.26
+S-A0233,CL-A,Winston Salem,NC,36.1,-80.26
+S-A0234,CL-A,Winston Salem,NC,36.1,-80.26
+S-A0235,CL-A,Winston Salem,NC,36.1,-80.26
+S-A0236,CL-A,Winston Salem,NC,36.1,-80.26
+S-A0237,CL-A,Winston Salem,NC,36.1,-80.26
+S-A0238,CL-A,Winston Salem,NC,36.1,-80.26
+S-A0239,CL-A,Cheraw,SC,34.7,-79.92
+S-A0240,CL-A,Cheraw,SC,34.7,-79.92
+S-A0241,CL-A,Rock Hill,SC,34.95,-81.0
+S-A0242,CL-A,Rock Hill,SC,34.95,-81.0
+S-A0243,CL-A,Crossville,TN,35.97,-85.03
+S-A0244,CL-A,Crossville,TN,35.97,-85.03
+S-A0245,CL-A,Greeneville,TN,36.17,-82.79
+S-A0246,CL-A,Greeneville,TN,36.17,-82.79
+S-A0247,CL-A,Greeneville,TN,36.17,-82.79
+S-A0248,CL-A,Harriman,TN,35.91,-84.58
+S-A0249,CL-A,Harriman,TN,35.91,-84.58
+S-A0250,CL-A,Johnson City,TN,36.33,-82.39
+S-A0251,CL-A,Johnson City,TN,36.33,-82.39
+S-A0252,CL-A,Johnson City,TN,36.33,-82.39
+S-A0253,CL-A,Johnson City,TN,36.33,-82.39
+S-A0254,CL-A,Johnson City,TN,36.33,-82.39
+S-A0255,CL-A,Johnson City,TN,36.33,-82.39
+S-A0256,CL-A,Knoxville,TN,35.97,-83.99
+S-A0257,CL-A,Knoxville,TN,35.97,-83.99
+S-A0258,CL-A,Knoxville,TN,35.97,-83.99
+S-A0259,CL-A,Knoxville,TN,35.97,-83.99
+S-A0260,CL-A,Knoxville,TN,35.97,-83.99
+S-A0261,CL-A,Knoxville,TN,35.97,-83.99
+S-A0262,CL-A,Knoxville,TN,35.97,-83.99
+S-A0263,CL-A,Knoxville,TN,35.97,-83.99
+S-A0264,CL-A,Knoxville,TN,35.97,-83.99
+S-A0265,CL-A,Knoxville,TN,35.97,-83.99
+S-A0266,CL-A,Knoxville,TN,35.97,-83.99
+S-A0267,CL-A,Knoxville,TN,35.97,-83.99
+S-A0268,CL-A,Knoxville,TN,35.97,-83.99
+S-A0269,CL-A,Knoxville,TN,35.97,-83.99
+S-A0270,CL-A,Knoxville,TN,35.97,-83.99
+S-A0271,CL-A,Knoxville,TN,35.97,-83.99
+S-A0272,CL-A,Knoxville,TN,35.97,-83.99
+S-A0273,CL-A,Knoxville,TN,35.97,-83.99
+S-A0274,CL-A,Knoxville,TN,35.97,-83.99
+S-A0275,CL-A,Knoxville,TN,35.97,-83.99
+S-A0276,CL-A,La Follette,TN,36.35,-84.16
+S-A0277,CL-A,Morristown,TN,36.2,-83.33
+S-A0278,CL-A,Morristown,TN,36.2,-83.33
+S-A0279,CL-A,Morristown,TN,36.2,-83.33
+S-A0280,CL-A,Morristown,TN,36.2,-83.33
+S-A0281,CL-A,Morristown,TN,36.2,-83.33
+S-A0282,CL-A,Morristown,TN,36.2,-83.33
+S-A0283,CL-A,Morristown,TN,36.2,-83.33
+S-A0284,CL-A,Sevierville,TN,35.86,-83.56
+S-A0285,CL-A,Sevierville,TN,35.86,-83.56
+S-A0286,CL-A,Sevierville,TN,35.86,-83.56
+S-A0287,CL-A,Sevierville,TN,35.86,-83.56
+S-A0288,CL-A,Sevierville,TN,35.86,-83.56
+S-A0289,CL-A,Bristol,VA,36.62,-82.17
+S-A0290,CL-A,Bristol,VA,36.62,-82.17
+S-A0291,CL-A,Bristol,VA,36.62,-82.17
+S-A0292,CL-A,Christiansburg,VA,37.16,-80.41
+S-A0293,CL-A,Christiansburg,VA,37.16,-80.41
+S-A0294,CL-A,Christiansburg,VA,37.16,-80.41
+S-A0295,CL-A,Christiansburg,VA,37.16,-80.41
+S-A0296,CL-A,Christiansburg,VA,37.16,-80.41
+S-A0297,CL-A,Christiansburg,VA,37.16,-80.41
+S-A0298,CL-A,Collinsville,VA,36.72,-79.91
+S-A0299,CL-A,Collinsville,VA,36.72,-79.91
+S-A0300,CL-A,Collinsville,VA,36.72,-79.91
+S-A0301,CL-A,Collinsville,VA,36.72,-79.91
+S-A0302,CL-A,Danville,VA,36.59,-79.41
+S-A0303,CL-A,Danville,VA,36.59,-79.41
+S-A0304,CL-A,Danville,VA,36.59,-79.41
+S-A0305,CL-A,Glade Spring,VA,36.77,-81.78
+S-A0306,CL-A,Glade Spring,VA,36.77,-81.78
+S-A0307,CL-A,Glade Spring,VA,36.77,-81.78
+S-A0308,CL-A,Hillsville,VA,36.74,-80.78
+S-A0309,CL-A,Hillsville,VA,36.74,-80.78
+S-A0310,CL-A,Hillsville,VA,36.74,-80.78
+S-A0311,CL-A,Lynchburg,VA,37.36,-79.19
+S-A0312,CL-A,Lynchburg,VA,37.36,-79.19
+S-A0313,CL-A,Lynchburg,VA,37.36,-79.19
+S-A0314,CL-A,Lynchburg,VA,37.36,-79.19
+S-A0315,CL-A,Lynchburg,VA,37.36,-79.19
+S-A0316,CL-A,Lynchburg,VA,37.36,-79.19
+S-A0317,CL-A,Lynchburg,VA,37.36,-79.19
+S-A0318,CL-A,N. Tazwell,VA,37.14,-81.49
+S-A0319,CL-A,N. Tazwell,VA,37.14,-81.49
+S-A0320,CL-A,N. Tazwell,VA,37.14,-81.49
+S-A0321,CL-A,N. Tazwell,VA,37.14,-81.49
+S-A0322,CL-A,Raphine,VA,37.93,-79.23
+S-A0323,CL-A,Roanoke,VA,37.28,-79.95
+S-A0324,CL-A,Roanoke,VA,37.28,-79.95
+S-A0325,CL-A,Roanoke,VA,37.28,-79.95
+S-A0326,CL-A,Roanoke,VA,37.28,-79.95
+S-A0327,CL-A,Roanoke,VA,37.28,-79.95
+S-A0328,CL-A,Roanoke,VA,37.28,-79.95
+S-A0329,CL-A,Roanoke,VA,37.28,-79.95
+S-A0330,CL-A,Roanoke,VA,37.28,-79.95
+S-A0331,CL-A,Roanoke,VA,37.28,-79.95
+S-A0332,CL-A,Roanoke,VA,37.28,-79.95
+S-A0333,CL-A,South Boston,VA,36.73,-78.91
+S-A0334,CL-A,Wise,VA,36.97,-82.6
+S-A0335,CL-A,Wytheville,VA,36.96,-81.09
+S-A0336,CL-A,Wytheville,VA,36.96,-81.09
+S-A0337,CL-A,Wytheville,VA,36.96,-81.09
+S-A0338,CL-A,Wytheville,VA,36.96,-81.09
+S-A0339,CL-A,Beckley,WV,37.8,-81.2
+S-A0340,CL-A,Beckley,WV,37.8,-81.2
+S-A0341,CL-A,Beckley,WV,37.8,-81.2
+S-A0342,CL-A,Beckley,WV,37.8,-81.2
+S-A0343,CL-A,Beckley,WV,37.8,-81.2
+S-A0344,CL-A,Beckley,WV,37.8,-81.2
+S-A0345,CL-A,Beckley,WV,37.8,-81.2
+S-A0346,CL-A,Caldwell,WV,37.77,-80.35
+S-A0347,CL-A,Caldwell,WV,37.77,-80.35
+S-A0348,CL-A,Caldwell,WV,37.77,-80.35
+S-A0349,CL-A,Princeton,WV,37.4,-81.08
+S-A0350,CL-A,Princeton,WV,37.4,-81.08
+S-A0351,CL-A,Princeton,WV,37.4,-81.08
+S-A0352,CL-A,Princeton,WV,37.4,-81.08
+S-B0001,CL-B,Decatur,AL,34.56,-86.98
+S-B0002,CL-B,Decatur,AL,34.56,-86.98
+S-B0003,CL-B,Florence,AL,34.84,-87.63
+S-B0004,CL-B,Huntsville,AL,34.72,-86.63
+S-B0005,CL-B,Montgomery,AL,32.36,-86.16
+S-B0006,CL-B,Montgomery,AL,32.36,-86.16
+S-B0007,CL-B,Opelika,AL,32.61,-85.4
+S-B0008,CL-B,Oxford,AL,33.61,-85.79
+S-B0009,CL-B,Pelham,AL,33.34,-86.78
+S-B0010,CL-B,Tuscaloosa,AL,33.2,-87.53
+S-B0011,CL-B,Athens,GA,33.93,-83.42
+S-B0012,CL-B,Atlanta,GA,33.86,-84.41
+S-B0013,CL-B,Atlanta,GA,33.86,-84.41
+S-B0014,CL-B,Augusta,GA,33.48,-82.06
+S-B0015,CL-B,Bonaire,GA,32.55,-83.66
+S-B0016,CL-B,Buford,GA,33.96,-84.01
+S-B0017,CL-B,Buford,GA,33.96,-84.01
+S-B0018,CL-B,Buford,GA,33.96,-84.01
+S-B0019,CL-B,Carterville,GA,34.17,-84.77
+S-B0020,CL-B,Carterville,GA,34.17,-84.77
+S-B0021,CL-B,Columbus,GA,32.55,-84.95
+S-B0022,CL-B,Gainesville,GA,34.31,-83.83
+S-B0023,CL-B,Macon,GA,32.88,-83.73
+S-B0024,CL-B,Mcdonough,GA,33.42,-84.19
+S-B0025,CL-B,Newnan,GA,33.39,-84.75
+S-B0026,CL-B,Rome,GA,34.25,-85.16
+S-B0027,CL-B,Savannah,GA,32.03,-81.12
+S-B0028,CL-B,Savannah,GA,32.03,-81.12
+S-B0029,CL-B,Statesboro,GA,32.43,-81.77
+S-B0030,CL-B,Aberdeen,NC,35.15,-79.42
+S-B0031,CL-B,Asheville,NC,35.56,-82.56
+S-B0032,CL-B,Chapel Hill,NC,35.94,-79.04
+S-B0033,CL-B,Charlotte,NC,35.31,-80.9
+S-B0034,CL-B,Charlotte,NC,35.31,-80.9
+S-B0035,CL-B,Elizabeth City,NC,36.29,-76.29
+S-B0036,CL-B,Fayetteville,NC,35.06,-78.94
+S-B0037,CL-B,Goldsboro,NC,35.38,-77.97
+S-B0038,CL-B,Greensboro,NC,36.06,-79.84
+S-B0039,CL-B,Greensboro,NC,36.06,-79.84
+S-B0040,CL-B,Greensboro,NC,36.06,-79.84
+S-B0041,CL-B,Greenville,NC,35.58,-77.38
+S-B0042,CL-B,Hickory,NC,35.72,-81.32
+S-B0043,CL-B,Jacksonville,NC,34.78,-77.42
+S-B0044,CL-B,Monroe,NC,35.01,-80.56
+S-B0045,CL-B,Raleigh,NC,35.83,-78.65
+S-B0046,CL-B,Raleigh,NC,35.83,-78.65
+S-B0047,CL-B,Salisbury,NC,35.65,-80.47
+S-B0048,CL-B,Wilmington,NC,34.23,-77.87
+S-B0049,CL-B,Winston Salem,NC,36.1,-80.26
+S-B0050,CL-B,Anderson,SC,34.54,-82.67
+S-B0051,CL-B,Columbia,SC,34.05,-81.01
+S-B0052,CL-B,Columbia,SC,34.05,-81.01
+S-B0053,CL-B,Florence,SC,34.2,-79.79
+S-B0054,CL-B,Greenville,SC,34.84,-82.36
+S-B0055,CL-B,Myrtle Beach,SC,33.72,-78.9
+S-B0056,CL-B,North Charleston,SC,32.92,-80.06
+S-B0057,CL-B,Rock Hill,SC,34.95,-81.0
+S-B0058,CL-B,Spartanburg,SC,34.95,-81.95
+S-B0059,CL-B,Chattanooga,TN,35.06,-85.22
+S-B0060,CL-B,Chattanooga,TN,35.06,-85.22
+S-B0061,CL-B,Greeneville,TN,36.17,-82.79
+S-B0062,CL-B,Johnson City,TN,36.33,-82.39
+S-B0063,CL-B,Johnson City,TN,36.33,-82.39
+S-B0064,CL-B,Knoxville,TN,35.97,-83.99
+S-B0065,CL-B,Knoxville,TN,35.97,-83.99
+S-B0066,CL-B,Knoxville,TN,35.97,-83.99
+S-B0067,CL-B,Knoxville,TN,35.97,-83.99
+S-B0068,CL-B,Knoxville,TN,35.97,-83.99
+S-B0069,CL-B,Morristown,TN,36.2,-83.33
+S-B0070,CL-B,Sevierville,TN,35.86,-83.56
+S-B0071,CL-B,Sevierville,TN,35.86,-83.56
+S-B0072,CL-B,Bristol,VA,36.62,-82.17
+S-B0073,CL-B,Christiansburg,VA,37.16,-80.41
+S-B0074,CL-B,Danville,VA,36.59,-79.41
+S-B0075,CL-B,Roanoke,VA,37.28,-79.95
+S-B0076,CL-B,Beckley,WV,37.8,-81.2
+S-C0001,CL-C,Augusta,GA,33.48,-82.06
+S-C0002,CL-C,Augusta,GA,33.48,-82.06
+S-C0003,CL-C,Augusta,GA,33.48,-82.06
+S-C0004,CL-C,Augusta,GA,33.48,-82.06
+S-C0005,CL-C,Dalton,GA,34.76,-85.0
+S-C0006,CL-C,Hinesville,GA,31.83,-81.6
+S-C0007,CL-C,Hinesville,GA,31.83,-81.6
+S-C0008,CL-C,Savannah,GA,32.03,-81.12
+S-C0009,CL-C,Savannah,GA,32.03,-81.12
+S-C0010,CL-C,Statesboro,GA,32.43,-81.77
+S-C0011,CL-C,Asheville,NC,35.56,-82.56
+S-C0012,CL-C,Asheville,NC,35.56,-82.56
+S-C0013,CL-C,Asheville,NC,35.56,-82.56
+S-C0014,CL-C,Benson,NC,35.52,-78.56
+S-C0015,CL-C,Charlotte,NC,35.31,-80.9
+S-C0016,CL-C,Charlotte,NC,35.31,-80.9
+S-C0017,CL-C,Charlotte,NC,35.31,-80.9
+S-C0018,CL-C,Charlotte,NC,35.31,-80.9
+S-C0019,CL-C,Charlotte,NC,35.31,-80.9
+S-C0020,CL-C,Charlotte,NC,35.31,-80.9
+S-C0021,CL-C,Charlotte,NC,35.31,-80.9
+S-C0022,CL-C,Charlotte,NC,35.31,-80.9
+S-C0023,CL-C,Fayetteville,NC,35.06,-78.94
+S-C0024,CL-C,Fayetteville,NC,35.06,-78.94
+S-C0025,CL-C,Fayetteville,NC,35.06,-78.94
+S-C0026,CL-C,Fayetteville,NC,35.06,-78.94
+S-C0027,CL-C,Goldsboro,NC,35.38,-77.97
+S-C0028,CL-C,Greensboro,NC,36.06,-79.84
+S-C0029,CL-C,Greensboro,NC,36.06,-79.84
+S-C0030,CL-C,Greensboro,NC,36.06,-79.84
+S-C0031,CL-C,Greenville,NC,35.58,-77.38
+S-C0032,CL-C,Jacksonville,NC,34.78,-77.42
+S-C0033,CL-C,Jacksonville,NC,34.78,-77.42
+S-C0034,CL-C,Jacksonville,NC,34.78,-77.42
+S-C0035,CL-C,Jacksonville,NC,34.78,-77.42
+S-C0036,CL-C,Monroe,NC,35.01,-80.56
+S-C0037,CL-C,New Bern,NC,35.11,-77.09
+S-C0038,CL-C,Raleigh,NC,35.83,-78.65
+S-C0039,CL-C,Raleigh,NC,35.83,-78.65
+S-C0040,CL-C,Tarboro,NC,35.88,-77.55
+S-C0041,CL-C,Wilmington,NC,34.23,-77.87
+S-C0042,CL-C,Wilmington,NC,34.23,-77.87
+S-C0043,CL-C,Wilmington,NC,34.23,-77.87
+S-C0044,CL-C,Winston Salem,NC,36.1,-80.26
+S-C0045,CL-C,Anderson,SC,34.54,-82.67
+S-C0046,CL-C,Beaufort,SC,32.43,-80.7
+S-C0047,CL-C,Columbia,SC,34.05,-81.01
+S-C0048,CL-C,Columbia,SC,34.05,-81.01
+S-C0049,CL-C,Columbia,SC,34.05,-81.01
+S-C0050,CL-C,Columbia,SC,34.05,-81.01
+S-C0051,CL-C,Columbia,SC,34.05,-81.01
+S-C0052,CL-C,Florence,SC,34.2,-79.79
+S-C0053,CL-C,Greenville,SC,34.84,-82.36
+S-C0054,CL-C,Greenville,SC,34.84,-82.36
+S-C0055,CL-C,Greenville,SC,34.84,-82.36
+S-C0056,CL-C,Greenville,SC,34.84,-82.36
+S-C0057,CL-C,Myrtle Beach,SC,33.72,-78.9
+S-C0058,CL-C,Myrtle Beach,SC,33.72,-78.9
+S-C0059,CL-C,North Charleston,SC,32.92,-80.06
+S-C0060,CL-C,North Charleston,SC,32.92,-80.06
+S-C0061,CL-C,North Charleston,SC,32.92,-80.06
+S-C0062,CL-C,Rock Hill,SC,34.95,-81.0
+S-C0063,CL-C,Rock Hill,SC,34.95,-81.0
+S-C0064,CL-C,Rock Hill,SC,34.95,-81.0
+S-C0065,CL-C,Spartanburg,SC,34.95,-81.95
+S-C0066,CL-C,Chattanooga,TN,35.06,-85.22
+S-C0067,CL-C,Chattanooga,TN,35.06,-85.22
+S-C0068,CL-C,Chattanooga,TN,35.06,-85.22
+S-C0069,CL-C,Chattanooga,TN,35.06,-85.22
+S-C0070,CL-C,Chattanooga,TN,35.06,-85.22
+S-C0071,CL-C,Cleveland,TN,35.21,-84.86
+S-C0072,CL-C,Greeneville,TN,36.17,-82.79
+S-C0073,CL-C,Harriman,TN,35.91,-84.58
+S-C0074,CL-C,Johnson City,TN,36.33,-82.39
+S-C0075,CL-C,Johnson City,TN,36.33,-82.39
+S-C0076,CL-C,Knoxville,TN,35.97,-83.99
+S-C0077,CL-C,Knoxville,TN,35.97,-83.99
+S-C0078,CL-C,Knoxville,TN,35.97,-83.99
+S-C0079,CL-C,Knoxville,TN,35.97,-83.99
+S-C0080,CL-C,Knoxville,TN,35.97,-83.99
+S-C0081,CL-C,Knoxville,TN,35.97,-83.99
+S-C0082,CL-C,Knoxville,TN,35.97,-83.99
+S-C0083,CL-C,Morristown,TN,36.2,-83.33
+S-C0084,CL-C,Sevierville,TN,35.86,-83.56
+S-C0085,CL-C,Sevierville,TN,35.86,-83.56
+S-C0086,CL-C,Bristol,VA,36.62,-82.17
+S-C0087,CL-C,Christiansburg,VA,37.16,-80.41
+S-C0088,CL-C,Christiansburg,VA,37.16,-80.41
+S-C0089,CL-C,Danville,VA,36.59,-79.41
+S-C0090,CL-C,Lynchburg,VA,37.36,-79.19
+S-C0091,CL-C,Roanoke,VA,37.28,-79.95
+S-C0092,CL-C,Roanoke,VA,37.28,-79.95
+S-D0001,CL-D,Aberdeen,NC,35.15,-79.42
+S-D0002,CL-D,Asheville,NC,35.56,-82.56
+S-D0003,CL-D,Asheville,NC,35.56,-82.56
+S-D0004,CL-D,Benson,NC,35.52,-78.56
+S-D0005,CL-D,Chapel Hill,NC,35.94,-79.04
+S-D0006,CL-D,Charlotte,NC,35.31,-80.9
+S-D0007,CL-D,Charlotte,NC,35.31,-80.9
+S-D0008,CL-D,Charlotte,NC,35.31,-80.9
+S-D0009,CL-D,Charlotte,NC,35.31,-80.9
+S-D0010,CL-D,Charlotte,NC,35.31,-80.9
+S-D0011,CL-D,Charlotte,NC,35.31,-80.9
+S-D0012,CL-D,Fayetteville,NC,35.06,-78.94
+S-D0013,CL-D,Fayetteville,NC,35.06,-78.94
+S-D0014,CL-D,Greensboro,NC,36.06,-79.84
+S-D0015,CL-D,Greensboro,NC,36.06,-79.84
+S-D0016,CL-D,Greenville,NC,35.58,-77.38
+S-D0017,CL-D,Hickory,NC,35.72,-81.32
+S-D0018,CL-D,Jacksonville,NC,34.78,-77.42
+S-D0019,CL-D,Marion,NC,35.7,-82.04
+S-D0020,CL-D,Monroe,NC,35.01,-80.56
+S-D0021,CL-D,Monroe,NC,35.01,-80.56
+S-D0022,CL-D,Morehead City,NC,34.74,-76.8
+S-D0023,CL-D,New Bern,NC,35.11,-77.09
+S-D0024,CL-D,Raleigh,NC,35.83,-78.65
+S-D0025,CL-D,Raleigh,NC,35.83,-78.65
+S-D0026,CL-D,Raleigh,NC,35.83,-78.65
+S-D0027,CL-D,Raleigh,NC,35.83,-78.65
+S-D0028,CL-D,Raleigh,NC,35.83,-78.65
+S-D0029,CL-D,Salisbury,NC,35.65,-80.47
+S-D0030,CL-D,Sanford,NC,35.45,-79.13
+S-D0031,CL-D,Sanford,NC,35.45,-79.13
+S-D0032,CL-D,Statesville,NC,35.8,-80.87
+S-D0033,CL-D,Tarboro,NC,35.88,-77.55
+S-D0034,CL-D,Wilmington,NC,34.23,-77.87
+S-D0035,CL-D,Wilmington,NC,34.23,-77.87
+S-D0036,CL-D,Wilmington,NC,34.23,-77.87
+S-D0037,CL-D,Wilson,NC,35.73,-77.93
+S-D0038,CL-D,Winston Salem,NC,36.1,-80.26
+S-D0039,CL-D,Winston Salem,NC,36.1,-80.26
+S-D0040,CL-D,Columbia,SC,34.05,-81.01
+S-D0041,CL-D,Columbia,SC,34.05,-81.01
+S-D0042,CL-D,Columbia,SC,34.05,-81.01
+S-D0043,CL-D,Florence,SC,34.2,-79.79
+S-D0044,CL-D,Greenville,SC,34.84,-82.36
+S-D0045,CL-D,Myrtle Beach,SC,33.72,-78.9
+S-D0046,CL-D,Myrtle Beach,SC,33.72,-78.9
+S-D0047,CL-D,Myrtle Beach,SC,33.72,-78.9
+S-D0048,CL-D,North Charleston,SC,32.92,-80.06
+S-D0049,CL-D,North Charleston,SC,32.92,-80.06
+S-D0050,CL-D,North Charleston,SC,32.92,-80.06
+S-D0051,CL-D,North Charleston,SC,32.92,-80.06
+S-D0052,CL-D,Rock Hill,SC,34.95,-81.0
+S-D0053,CL-D,Rock Hill,SC,34.95,-81.0
+S-D0054,CL-D,Spartanburg,SC,34.95,-81.95
+S-D0055,CL-D,Sumter,SC,33.95,-80.4
+S-D0056,CL-D,Johnson City,TN,36.33,-82.39
+S-D0057,CL-D,Johnson City,TN,36.33,-82.39
+S-D0058,CL-D,Morristown,TN,36.2,-83.33
+S-D0059,CL-D,Bristol,VA,36.62,-82.17
+S-D0060,CL-D,Christiansburg,VA,37.16,-80.41
+S-D0061,CL-D,Danville,VA,36.59,-79.41
+S-D0062,CL-D,Beckley,WV,37.8,-81.2
+S-D0063,CL-D,Beckley,WV,37.8,-81.2
+S-E0001,CL-E,Athens,GA,33.93,-83.42
+S-E0002,CL-E,Atlanta,GA,33.86,-84.41
+S-E0003,CL-E,Atlanta,GA,33.86,-84.41
+S-E0004,CL-E,Atlanta,GA,33.86,-84.41
+S-E0005,CL-E,Atlanta,GA,33.86,-84.41
+S-E0006,CL-E,Atlanta,GA,33.86,-84.41
+S-E0007,CL-E,Augusta,GA,33.48,-82.06
+S-E0008,CL-E,Augusta,GA,33.48,-82.06
+S-E0009,CL-E,Augusta,GA,33.48,-82.06
+S-E0010,CL-E,Bonaire,GA,32.55,-83.66
+S-E0011,CL-E,Carterville,GA,34.17,-84.77
+S-E0012,CL-E,Carterville,GA,34.17,-84.77
+S-E0013,CL-E,Gainesville,GA,34.31,-83.83
+S-E0014,CL-E,Hinesville,GA,31.83,-81.6
+S-E0015,CL-E,Macon,GA,32.88,-83.73
+S-E0016,CL-E,Macon,GA,32.88,-83.73
+S-E0017,CL-E,Mcdonough,GA,33.42,-84.19
+S-E0018,CL-E,Mcdonough,GA,33.42,-84.19
+S-E0019,CL-E,Milledgeville,GA,33.11,-83.26
+S-E0020,CL-E,Newnan,GA,33.39,-84.75
+S-E0021,CL-E,Rome,GA,34.25,-85.16
+S-E0022,CL-E,Savannah,GA,32.03,-81.12
+S-E0023,CL-E,Statesboro,GA,32.43,-81.77
+S-E0024,CL-E,Aberdeen,NC,35.15,-79.42
+S-E0025,CL-E,Charlotte,NC,35.31,-80.9
+S-E0026,CL-E,Charlotte,NC,35.31,-80.9
+S-E0027,CL-E,Charlotte,NC,35.31,-80.9
+S-E0028,CL-E,Charlotte,NC,35.31,-80.9
+S-E0029,CL-E,Charlotte,NC,35.31,-80.9
+S-E0030,CL-E,Charlotte,NC,35.31,-80.9
+S-E0031,CL-E,Charlotte,NC,35.31,-80.9
+S-E0032,CL-E,Fayetteville,NC,35.06,-78.94
+S-E0033,CL-E,Fayetteville,NC,35.06,-78.94
+S-E0034,CL-E,Goldsboro,NC,35.38,-77.97
+S-E0035,CL-E,Greensboro,NC,36.06,-79.84
+S-E0036,CL-E,Greensboro,NC,36.06,-79.84
+S-E0037,CL-E,Greenville,NC,35.58,-77.38
+S-E0038,CL-E,Monroe,NC,35.01,-80.56
+S-E0039,CL-E,Monroe,NC,35.01,-80.56
+S-E0040,CL-E,New Bern,NC,35.11,-77.09
+S-E0041,CL-E,Raleigh,NC,35.83,-78.65
+S-E0042,CL-E,Raleigh,NC,35.83,-78.65
+S-E0043,CL-E,Shelby,NC,35.28,-81.53
+S-E0044,CL-E,Statesville,NC,35.8,-80.87
+S-E0045,CL-E,Wilmington,NC,34.23,-77.87
+S-E0046,CL-E,Wilmington,NC,34.23,-77.87
+S-E0047,CL-E,Winston Salem,NC,36.1,-80.26
+S-E0048,CL-E,Anderson,SC,34.54,-82.67
+S-E0049,CL-E,Aynor,SC,33.99,-79.2
+S-E0050,CL-E,Columbia,SC,34.05,-81.01
+S-E0051,CL-E,Columbia,SC,34.05,-81.01
+S-E0052,CL-E,Columbia,SC,34.05,-81.01
+S-E0053,CL-E,Columbia,SC,34.05,-81.01
+S-E0054,CL-E,Columbia,SC,34.05,-81.01
+S-E0055,CL-E,Florence,SC,34.2,-79.79
+S-E0056,CL-E,Greenville,SC,34.84,-82.36
+S-E0057,CL-E,Greenville,SC,34.84,-82.36
+S-E0058,CL-E,Greenville,SC,34.84,-82.36
+S-E0059,CL-E,Greenville,SC,34.84,-82.36
+S-E0060,CL-E,Myrtle Beach,SC,33.72,-78.9
+S-E0061,CL-E,Myrtle Beach,SC,33.72,-78.9
+S-E0062,CL-E,Myrtle Beach,SC,33.72,-78.9
+S-E0063,CL-E,Myrtle Beach,SC,33.72,-78.9
+S-E0064,CL-E,Myrtle Beach,SC,33.72,-78.9
+S-E0065,CL-E,North Charleston,SC,32.92,-80.06
+S-E0066,CL-E,North Charleston,SC,32.92,-80.06
+S-E0067,CL-E,Rock Hill,SC,34.95,-81.0
+S-E0068,CL-E,Rock Hill,SC,34.95,-81.0
+S-E0069,CL-E,Rock Hill,SC,34.95,-81.0
+S-E0070,CL-E,Rock Hill,SC,34.95,-81.0
+S-E0071,CL-E,Rock Hill,SC,34.95,-81.0
+S-E0072,CL-E,Rock Hill,SC,34.95,-81.0
+S-E0073,CL-E,Spartanburg,SC,34.95,-81.95
+S-E0074,CL-E,Spartanburg,SC,34.95,-81.95
+S-E0075,CL-E,Spartanburg,SC,34.95,-81.95
+S-E0076,CL-E,Sumter,SC,33.95,-80.4
+S-E0077,CL-E,Chattanooga,TN,35.06,-85.22
+S-E0078,CL-E,Chattanooga,TN,35.06,-85.22
+S-E0079,CL-E,Chattanooga,TN,35.06,-85.22
+S-E0080,CL-E,Chattanooga,TN,35.06,-85.22
+S-E0081,CL-E,Cleveland,TN,35.21,-84.86
+S-E0082,CL-E,Cleveland,TN,35.21,-84.86
+S-E0083,CL-E,Crossville,TN,35.97,-85.03
+S-E0084,CL-E,Johnson City,TN,36.33,-82.39
+S-E0085,CL-E,Johnson City,TN,36.33,-82.39
+S-E0086,CL-E,Knoxville,TN,35.97,-83.99
+S-E0087,CL-E,Knoxville,TN,35.97,-83.99
+S-E0088,CL-E,Knoxville,TN,35.97,-83.99
+S-E0089,CL-E,Knoxville,TN,35.97,-83.99
+S-E0090,CL-E,Knoxville,TN,35.97,-83.99
+S-E0091,CL-E,Knoxville,TN,35.97,-83.99
+S-E0092,CL-E,Sevierville,TN,35.86,-83.56
+S-E0093,CL-E,Bristol,VA,36.62,-82.17
+S-F0001,CL-F,Albertville,AL,34.28,-86.2
+S-F0002,CL-F,Huntsville,AL,34.72,-86.63
+S-F0003,CL-F,Pelham,AL,33.34,-86.78
+S-F0004,CL-F,Atlanta,GA,33.86,-84.41
+S-F0005,CL-F,Atlanta,GA,33.86,-84.41
+S-F0006,CL-F,Atlanta,GA,33.86,-84.41
+S-F0007,CL-F,Atlanta,GA,33.86,-84.41
+S-F0008,CL-F,Atlanta,GA,33.86,-84.41
+S-F0009,CL-F,Atlanta,GA,33.86,-84.41
+S-F0010,CL-F,Atlanta,GA,33.86,-84.41
+S-F0011,CL-F,Atlanta,GA,33.86,-84.41
+S-F0012,CL-F,Atlanta,GA,33.86,-84.41
+S-F0013,CL-F,Atlanta,GA,33.86,-84.41
+S-F0014,CL-F,Atlanta,GA,33.86,-84.41
+S-F0015,CL-F,Augusta,GA,33.48,-82.06
+S-F0016,CL-F,Augusta,GA,33.48,-82.06
+S-F0017,CL-F,Augusta,GA,33.48,-82.06
+S-F0018,CL-F,Augusta,GA,33.48,-82.06
+S-F0019,CL-F,Bonaire,GA,32.55,-83.66
+S-F0020,CL-F,Buford,GA,33.96,-84.01
+S-F0021,CL-F,Buford,GA,33.96,-84.01
+S-F0022,CL-F,Buford,GA,33.96,-84.01
+S-F0023,CL-F,Buford,GA,33.96,-84.01
+S-F0024,CL-F,Buford,GA,33.96,-84.01
+S-F0025,CL-F,Buford,GA,33.96,-84.01
+S-F0026,CL-F,Buford,GA,33.96,-84.01
+S-F0027,CL-F,Buford,GA,33.96,-84.01
+S-F0028,CL-F,Columbus,GA,32.55,-84.95
+S-F0029,CL-F,Hinesville,GA,31.83,-81.6
+S-F0030,CL-F,Mcdonough,GA,33.42,-84.19
+S-F0031,CL-F,Mcdonough,GA,33.42,-84.19
+S-F0032,CL-F,Mcdonough,GA,33.42,-84.19
+S-F0033,CL-F,Newnan,GA,33.39,-84.75
+S-F0034,CL-F,Savannah,GA,32.03,-81.12
+S-F0035,CL-F,Savannah,GA,32.03,-81.12
+S-F0036,CL-F,Savannah,GA,32.03,-81.12
+S-F0037,CL-F,Aberdeen,NC,35.15,-79.42
+S-F0038,CL-F,Asheville,NC,35.56,-82.56
+S-F0039,CL-F,Benson,NC,35.52,-78.56
+S-F0040,CL-F,Chapel Hill,NC,35.94,-79.04
+S-F0041,CL-F,Chapel Hill,NC,35.94,-79.04
+S-F0042,CL-F,Chapel Hill,NC,35.94,-79.04
+S-F0043,CL-F,Charlotte,NC,35.31,-80.9
+S-F0044,CL-F,Charlotte,NC,35.31,-80.9
+S-F0045,CL-F,Fayetteville,NC,35.06,-78.94
+S-F0046,CL-F,Fayetteville,NC,35.06,-78.94
+S-F0047,CL-F,Fayetteville,NC,35.06,-78.94
+S-F0048,CL-F,Goldsboro,NC,35.38,-77.97
+S-F0049,CL-F,Greensboro,NC,36.06,-79.84
+S-F0050,CL-F,Greensboro,NC,36.06,-79.84
+S-F0051,CL-F,Greensboro,NC,36.06,-79.84
+S-F0052,CL-F,Greensboro,NC,36.06,-79.84
+S-F0053,CL-F,Greenville,NC,35.58,-77.38
+S-F0054,CL-F,Jacksonville,NC,34.78,-77.42
+S-F0055,CL-F,Lumberton,NC,34.67,-79.0
+S-F0056,CL-F,Raleigh,NC,35.83,-78.65
+S-F0057,CL-F,Raleigh,NC,35.83,-78.65
+S-F0058,CL-F,Raleigh,NC,35.83,-78.65
+S-F0059,CL-F,Raleigh,NC,35.83,-78.65
+S-F0060,CL-F,Raleigh,NC,35.83,-78.65
+S-F0061,CL-F,Raleigh,NC,35.83,-78.65
+S-F0062,CL-F,Raleigh,NC,35.83,-78.65
+S-F0063,CL-F,Ramseur,NC,40.08,-83.21
+S-F0064,CL-F,Salisbury,NC,35.65,-80.47
+S-F0065,CL-F,Statesville,NC,35.8,-80.87
+S-F0066,CL-F,Winston Salem,NC,36.1,-80.26
+S-F0067,CL-F,Winston Salem,NC,36.1,-80.26
+S-F0068,CL-F,Columbia,SC,34.05,-81.01
+S-F0069,CL-F,Columbia,SC,34.05,-81.01
+S-F0070,CL-F,Columbia,SC,34.05,-81.01
+S-F0071,CL-F,Florence,SC,34.2,-79.79
+S-F0072,CL-F,Greenville,SC,34.84,-82.36
+S-F0073,CL-F,Myrtle Beach,SC,33.72,-78.9
+S-F0074,CL-F,Myrtle Beach,SC,33.72,-78.9
+S-F0075,CL-F,Myrtle Beach,SC,33.72,-78.9
+S-F0076,CL-F,North Charleston,SC,32.92,-80.06
+S-F0077,CL-F,North Charleston,SC,32.92,-80.06
+S-F0078,CL-F,Rock Hill,SC,34.95,-81.0
+S-F0079,CL-F,Rock Hill,SC,34.95,-81.0
+S-F0080,CL-F,Rock Hill,SC,34.95,-81.0
+S-F0081,CL-F,Rock Hill,SC,34.95,-81.0
+S-F0082,CL-F,Rock Hill,SC,34.95,-81.0
+S-F0083,CL-F,Chattanooga,TN,35.06,-85.22
+S-F0084,CL-F,Chattanooga,TN,35.06,-85.22
+S-F0085,CL-F,Christiansburg,VA,37.16,-80.41
+S-F0086,CL-F,Lynchburg,VA,37.36,-79.19
+S-G0001,CL-G,Buford,GA,33.96,-84.01
+S-G0002,CL-G,Charlotte,NC,35.31,-80.9
+S-G0003,CL-G,Fayetteville,NC,35.06,-78.94
+S-G0004,CL-G,Jacksonville,NC,34.78,-77.42
+S-G0005,CL-G,Roanoke,VA,37.28,-79.95
+S-H0001,CL-H,Fayetteville,NC,35.06,-78.94
+S-H0002,CL-H,Greenville,NC,35.58,-77.38
+S-H0003,CL-H,Jacksonville,NC,34.78,-77.42
+S-I0001,CL-I,Augusta,GA,33.48,-82.06
+S-I0002,CL-I,Augusta,GA,33.48,-82.06
+S-I0003,CL-I,Augusta,GA,33.48,-82.06
+S-I0004,CL-I,Augusta,GA,33.48,-82.06
+S-I0005,CL-I,Augusta,GA,33.48,-82.06
+S-I0006,CL-I,Augusta,GA,33.48,-82.06
+S-I0007,CL-I,Augusta,GA,33.48,-82.06
+S-I0008,CL-I,Augusta,GA,33.48,-82.06
+S-I0009,CL-I,Augusta,GA,33.48,-82.06
+S-I0010,CL-I,Augusta,GA,33.48,-82.06
+S-I0011,CL-I,Augusta,GA,33.48,-82.06
+S-I0012,CL-I,Hinesville,GA,31.83,-81.6
+S-I0013,CL-I,Jesup,GA,31.6,-81.91
+S-I0014,CL-I,Savannah,GA,32.03,-81.12
+S-I0015,CL-I,Savannah,GA,32.03,-81.12
+S-I0016,CL-I,Savannah,GA,32.03,-81.12
+S-I0017,CL-I,Savannah,GA,32.03,-81.12
+S-I0018,CL-I,Savannah,GA,32.03,-81.12
+S-I0019,CL-I,Savannah,GA,32.03,-81.12
+S-I0020,CL-I,Savannah,GA,32.03,-81.12
+S-I0021,CL-I,Savannah,GA,32.03,-81.12
+S-I0022,CL-I,Savannah,GA,32.03,-81.12
+S-I0023,CL-I,Savannah,GA,32.03,-81.12
+S-I0024,CL-I,Savannah,GA,32.03,-81.12
+S-I0025,CL-I,Savannah,GA,32.03,-81.12
+S-I0026,CL-I,Savannah,GA,32.03,-81.12
+S-I0027,CL-I,Savannah,GA,32.03,-81.12
+S-I0028,CL-I,Springfield,GA,32.35,-81.3
+S-I0029,CL-I,Springfield,GA,32.35,-81.3
+S-I0030,CL-I,Statesboro,GA,32.43,-81.77
+S-I0031,CL-I,Statesboro,GA,32.43,-81.77
+S-I0032,CL-I,Swainsboro,GA,32.59,-82.33
+S-I0033,CL-I,Thomson,GA,33.51,-82.5
+S-I0034,CL-I,Vidalia,GA,32.21,-82.4
+S-I0035,CL-I,Waynesboro,GA,33.1,-82.02
+S-I0036,CL-I,Shelby,NC,35.28,-81.53
+S-I0037,CL-I,Shelby,NC,35.28,-81.53
+S-I0038,CL-I,Anderson,SC,34.54,-82.67
+S-I0039,CL-I,Anderson,SC,34.54,-82.67
+S-I0040,CL-I,Anderson,SC,34.54,-82.67
+S-I0041,CL-I,Anderson,SC,34.54,-82.67
+S-I0042,CL-I,Anderson,SC,34.54,-82.67
+S-I0043,CL-I,Anderson,SC,34.54,-82.67
+S-I0044,CL-I,Anderson,SC,34.54,-82.67
+S-I0045,CL-I,Anderson,SC,34.54,-82.67
+S-I0046,CL-I,Aynor,SC,33.99,-79.2
+S-I0047,CL-I,Aynor,SC,33.99,-79.2
+S-I0048,CL-I,Aynor,SC,33.99,-79.2
+S-I0049,CL-I,Batesburg-Leesville,SC,33.91,-81.53
+S-I0050,CL-I,Beaufort,SC,32.43,-80.7
+S-I0051,CL-I,Beaufort,SC,32.43,-80.7
+S-I0052,CL-I,Beaufort,SC,32.43,-80.7
+S-I0053,CL-I,Beaufort,SC,32.43,-80.7
+S-I0054,CL-I,Beaufort,SC,32.43,-80.7
+S-I0055,CL-I,Beaufort,SC,32.43,-80.7
+S-I0056,CL-I,Beaufort,SC,32.43,-80.7
+S-I0057,CL-I,Camden,SC,34.25,-80.62
+S-I0058,CL-I,Camden,SC,34.25,-80.62
+S-I0059,CL-I,Cheraw,SC,34.7,-79.92
+S-I0060,CL-I,Cheraw,SC,34.7,-79.92
+S-I0061,CL-I,Clinton,SC,34.5,-81.86
+S-I0062,CL-I,Clinton,SC,34.5,-81.86
+S-I0063,CL-I,Clinton,SC,34.5,-81.86
+S-I0064,CL-I,Columbia,SC,34.05,-81.01
+S-I0065,CL-I,Columbia,SC,34.05,-81.01
+S-I0066,CL-I,Columbia,SC,34.05,-81.01
+S-I0067,CL-I,Columbia,SC,34.05,-81.01
+S-I0068,CL-I,Columbia,SC,34.05,-81.01
+S-I0069,CL-I,Columbia,SC,34.05,-81.01
+S-I0070,CL-I,Columbia,SC,34.05,-81.01
+S-I0071,CL-I,Columbia,SC,34.05,-81.01
+S-I0072,CL-I,Columbia,SC,34.05,-81.01
+S-I0073,CL-I,Columbia,SC,34.05,-81.01
+S-I0074,CL-I,Columbia,SC,34.05,-81.01
+S-I0075,CL-I,Columbia,SC,34.05,-81.01
+S-I0076,CL-I,Columbia,SC,34.05,-81.01
+S-I0077,CL-I,Columbia,SC,34.05,-81.01
+S-I0078,CL-I,Columbia,SC,34.05,-81.01
+S-I0079,CL-I,Columbia,SC,34.05,-81.01
+S-I0080,CL-I,Columbia,SC,34.05,-81.01
+S-I0081,CL-I,Columbia,SC,34.05,-81.01
+S-I0082,CL-I,Columbia,SC,34.05,-81.01
+S-I0083,CL-I,Columbia,SC,34.05,-81.01
+S-I0084,CL-I,Dillon,SC,34.44,-79.37
+S-I0085,CL-I,Dillon,SC,34.44,-79.37
+S-I0086,CL-I,Florence,SC,34.2,-79.79
+S-I0087,CL-I,Florence,SC,34.2,-79.79
+S-I0088,CL-I,Florence,SC,34.2,-79.79
+S-I0089,CL-I,Florence,SC,34.2,-79.79
+S-I0090,CL-I,Florence,SC,34.2,-79.79
+S-I0091,CL-I,Florence,SC,34.2,-79.79
+S-I0092,CL-I,Florence,SC,34.2,-79.79
+S-I0093,CL-I,Florence,SC,34.2,-79.79
+S-I0094,CL-I,Georgetown,SC,33.39,-79.29
+S-I0095,CL-I,Greenville,SC,34.84,-82.36
+S-I0096,CL-I,Greenville,SC,34.84,-82.36
+S-I0097,CL-I,Greenville,SC,34.84,-82.36
+S-I0098,CL-I,Greenville,SC,34.84,-82.36
+S-I0099,CL-I,Greenville,SC,34.84,-82.36
+S-I0100,CL-I,Greenville,SC,34.84,-82.36
+S-I0101,CL-I,Greenville,SC,34.84,-82.36
+S-I0102,CL-I,Greenville,SC,34.84,-82.36
+S-I0103,CL-I,Greenville,SC,34.84,-82.36
+S-I0104,CL-I,Greenville,SC,34.84,-82.36
+S-I0105,CL-I,Greenville,SC,34.84,-82.36
+S-I0106,CL-I,Greenville,SC,34.84,-82.36
+S-I0107,CL-I,Greenville,SC,34.84,-82.36
+S-I0108,CL-I,Greenville,SC,34.84,-82.36
+S-I0109,CL-I,Greenville,SC,34.84,-82.36
+S-I0110,CL-I,Greenwood,SC,34.19,-82.17
+S-I0111,CL-I,Greenwood,SC,34.19,-82.17
+S-I0112,CL-I,Myrtle Beach,SC,33.72,-78.9
+S-I0113,CL-I,Myrtle Beach,SC,33.72,-78.9
+S-I0114,CL-I,Myrtle Beach,SC,33.72,-78.9
+S-I0115,CL-I,Myrtle Beach,SC,33.72,-78.9
+S-I0116,CL-I,Myrtle Beach,SC,33.72,-78.9
+S-I0117,CL-I,Myrtle Beach,SC,33.72,-78.9
+S-I0118,CL-I,Myrtle Beach,SC,33.72,-78.9
+S-I0119,CL-I,Myrtle Beach,SC,33.72,-78.9
+S-I0120,CL-I,Myrtle Beach,SC,33.72,-78.9
+S-I0121,CL-I,Myrtle Beach,SC,33.72,-78.9
+S-I0122,CL-I,Myrtle Beach,SC,33.72,-78.9
+S-I0123,CL-I,Myrtle Beach,SC,33.72,-78.9
+S-I0124,CL-I,North Charleston,SC,32.92,-80.06
+S-I0125,CL-I,North Charleston,SC,32.92,-80.06
+S-I0126,CL-I,North Charleston,SC,32.92,-80.06
+S-I0127,CL-I,North Charleston,SC,32.92,-80.06
+S-I0128,CL-I,North Charleston,SC,32.92,-80.06
+S-I0129,CL-I,North Charleston,SC,32.92,-80.06
+S-I0130,CL-I,North Charleston,SC,32.92,-80.06
+S-I0131,CL-I,North Charleston,SC,32.92,-80.06
+S-I0132,CL-I,North Charleston,SC,32.92,-80.06
+S-I0133,CL-I,North Charleston,SC,32.92,-80.06
+S-I0134,CL-I,North Charleston,SC,32.92,-80.06
+S-I0135,CL-I,North Charleston,SC,32.92,-80.06
+S-I0136,CL-I,North Charleston,SC,32.92,-80.06
+S-I0137,CL-I,North Charleston,SC,32.92,-80.06
+S-I0138,CL-I,North Charleston,SC,32.92,-80.06
+S-I0139,CL-I,North Charleston,SC,32.92,-80.06
+S-I0140,CL-I,Orangeburg,SC,33.5,-80.79
+S-I0141,CL-I,Orangeburg,SC,33.5,-80.79
+S-I0142,CL-I,Orangeburg,SC,33.5,-80.79
+S-I0143,CL-I,Orangeburg,SC,33.5,-80.79
+S-I0144,CL-I,Prosperity,SC,34.24,-81.46
+S-I0145,CL-I,Prosperity,SC,34.24,-81.46
+S-I0146,CL-I,Rock Hill,SC,34.95,-81.0
+S-I0147,CL-I,Rock Hill,SC,34.95,-81.0
+S-I0148,CL-I,Rock Hill,SC,34.95,-81.0
+S-I0149,CL-I,Rock Hill,SC,34.95,-81.0
+S-I0150,CL-I,Rock Hill,SC,34.95,-81.0
+S-I0151,CL-I,Rock Hill,SC,34.95,-81.0
+S-I0152,CL-I,Rock Hill,SC,34.95,-81.0
+S-I0153,CL-I,Rock Hill,SC,34.95,-81.0
+S-I0154,CL-I,Spartanburg,SC,34.95,-81.95
+S-I0155,CL-I,Spartanburg,SC,34.95,-81.95
+S-I0156,CL-I,Spartanburg,SC,34.95,-81.95
+S-I0157,CL-I,Spartanburg,SC,34.95,-81.95
+S-I0158,CL-I,Spartanburg,SC,34.95,-81.95
+S-I0159,CL-I,Sumter,SC,33.95,-80.4
+S-I0160,CL-I,Sumter,SC,33.95,-80.4
+S-I0161,CL-I,Sumter,SC,33.95,-80.4
+S-I0162,CL-I,Sumter,SC,33.95,-80.4
+S-I0163,CL-I,Sumter,SC,33.95,-80.4
+S-I0164,CL-I,Walterboro,SC,32.91,-80.67
+S-I0165,CL-I,Winnsboro,SC,34.51,-81.0
+S-I0166,CL-I,Winnsboro,SC,34.51,-81.0
