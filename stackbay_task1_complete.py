@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+#to run in vs code : python -m pip install pandas numpy matplotlib tabulate  (to install libraries)
+#to run the code : python stackbay_task1_complete.py --data input_data --out outputs
 """StackBay Phase 1 Task 1(a-f). Run: python task1_analysis.py --data /path/to/csvs --out outputs"""
 import argparse
 from pathlib import Path
