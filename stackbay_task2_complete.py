@@ -1,4 +1,6 @@
 #!/usr/bin/env python3
+#run in vs code : python -m pip install -r requirements.txt
+#run in vs code : python task2_analysis.py --data input_data --out outputs --velocity-file task1_velocity_stock.csv
 """StackBay Casework 3 Phase 1 Task 2(a-d): reproducible operations diagnostic.
 Run: python task2_analysis.py --data input_data --out outputs
 Digital Twin experiments must be performed manually; no simulated results are invented. Includes two FIFO audits and sampled feasible-slot alternatives.
