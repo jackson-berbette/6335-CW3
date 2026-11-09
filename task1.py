@@ -1,421 +1,208 @@
-"""
-Casework 3 - StackBay Warehousing - Phase 1, Task 1: Characterize the business
-================================================================================
-Run from the project folder:      python task1.py            (data in ./data)
-                         or:      python task1.py path/to/data
-Outputs (tables .csv and charts .png) are written to ./outputs_task1/
 
-Every row of outbound.csv / inbound.csv is ONE pallet (pallet_id is unique).
-Historical year: 2025-07-07 (Mon) to 2026-07-05 (Sun) = 364 days = 52 weeks.
-"""
-import os
-import sys
+"""StackBay Phase 1 Task 1(a-f). Run: python task1.py --data /path/to/csvs --out outputs"""
+import argparse
+from pathlib import Path
 import numpy as np
 import pandas as pd
 import matplotlib
-matplotlib.use("Agg")
+matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 
-DATA = sys.argv[1] if len(sys.argv) > 1 else "data"
-OUT = "outputs_task1"
-os.makedirs(OUT, exist_ok=True)
+START=pd.Timestamp('2025-07-07'); END=pd.Timestamp('2026-07-05'); DAYS=pd.date_range(START,END)
+FILES=['clients','client_sites','skus','suppliers','slots','docks','opening_stock','inbound','outbound','trucks','current_stock']
 
-N_SLOTS = 8365            # from slots.csv (checked below)
-TRUCK_CAP = 26            # brief: "each on its own route, with up to 26 pallets"
-WEEKDAYS = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+def check(condition,message):
+    if not bool(condition): raise ValueError('DATA VALIDATION FAILED: '+message)
 
-# Velocity classes on pallets shipped per week (see 1b for the justification)
-CLASS_CUTS = [("A", 5.0), ("B", 1.0), ("C", 0.2), ("D", 0.0)]   # lower bound, pallets/week
+def write(df,out,name,index=False):
+    df.to_csv(out/(name+'.csv'),index=index)
+
+def plot_save(out,name):
+    plt.tight_layout();plt.savefig(out/(name+'.png'),dpi=180,bbox_inches='tight');plt.close()
+
+def main(data,out):
+    out.mkdir(parents=True,exist_ok=True)
+    d={n:pd.read_csv(data/(n+'.csv')) for n in FILES}
+    c,sites,sku,sup,slots,docks,opening,ib,ob,trucks,closing=[d[n] for n in FILES]
+    for t,col in [(ib,'receipt_date'),(ob,'ship_date'),(trucks,'ship_date')]:t[col]=pd.to_datetime(t[col])
+    for t in (opening,closing):t['received_date']=pd.to_datetime(t['received_date'])
+    ob['picked_at']=pd.to_datetime(ob['picked_at']);ob['departs_at']=pd.to_datetime(ob['departs_at']);ib['arrived_at']=pd.to_datetime(ib['arrived_at'])
+    check(len(slots)==8365 and slots.slot_id.is_unique,'slots not 8365 unique')
+    check(len(sku)==1189 and sku.sku_id.is_unique,'SKUs not 1189 unique')
+    check(len(sites)==936 and sites.site_id.is_unique,'sites not 936 unique')
+    check(len(docks)==32 and docks.door_id.is_unique,'doors not 32 unique')
+    check(c.client_id.is_unique and sup.supplier_id.is_unique,'duplicate master IDs')
+    check(trucks.truck_id.is_unique,'duplicate truck IDs')
+    check(ib.pallet_id.is_unique and ob.pallet_id.is_unique,'duplicate movement pallet IDs')
+    check(opening.pallet_id.is_unique and closing.pallet_id.is_unique,'duplicate stock pallet IDs')
+    check(opening.slot_id.is_unique and closing.slot_id.is_unique,'duplicate occupied stock slots')
+    check(set(ib.sku_id).issubset(set(sku.sku_id)) and set(ob.sku_id).issubset(set(sku.sku_id)),'unknown movement SKU')
+    check(set(ob.site_id).issubset(set(sites.site_id)),'unknown site')
+    check(set(ob.truck_id).issubset(set(trucks.truck_id)),'unknown truck')
+    check(set(ib.putaway_slot).issubset(set(slots.slot_id)) and set(ob.picked_from_slot).issubset(set(slots.slot_id)),'unknown slot')
+    check(set(opening.slot_id).issubset(set(slots.slot_id)) and set(closing.slot_id).issubset(set(slots.slot_id)),'unknown stock slot')
+    check(ib.receipt_date.between(START,END).all() and ob.ship_date.between(START,END).all(),'movements outside year')
+    check(len(opening)+len(ib)-len(ob)==len(closing),'global inventory balance')
+    check(set(opening.pallet_id).isdisjoint(set(ib.pallet_id)),'opening pallet also inbound')
+    available=set(opening.pallet_id)|set(ib.pallet_id)
+    check(set(ob.pallet_id).issubset(available),'outbound pallet not supplied')
+    check((available-set(ob.pallet_id))==set(closing.pallet_id),'closing pallet identities mismatch')
+    check(ob.groupby('truck_id').size().reindex(trucks.truck_id).to_numpy().tolist()==trucks.pallets.to_list(),'truck pallets mismatch')
+    check((sku.ti*sku.hi==sku.cases_per_pallet).all(),'SKU Ti*Hi mismatch')
+    check(c.set_index('client_id').sites.sort_index().equals(sites.groupby('client_id').size().sort_index()),'client store counts mismatch')
+    check(c.set_index('client_id').skus.sort_index().equals(sku.groupby('client_id').size().sort_index()),'client SKU counts mismatch')
+    check(sup.set_index('supplier_id').skus.sort_index().equals(sku.groupby('supplier_id').size().sort_index()),'supplier SKU counts mismatch')
+    check(ob.merge(sku[['sku_id','client_id']],on='sku_id',suffixes=('','_master')).eval('client_id == client_id_master').all(),'outbound client does not match SKU')
+    check(ob.merge(sites[['site_id','client_id']],on='site_id',suffixes=('','_site')).eval('client_id == client_id_site').all(),'outbound site does not match client')
+    check(ib.merge(sku[['sku_id','supplier_id']],on='sku_id',suffixes=('','_master')).eval('supplier_id == supplier_id_master').all(),'inbound supplier does not match SKU')
+    check(ob.merge(trucks[['truck_id','ship_date','door_id','route_id']],on='truck_id',suffixes=('','_truck')).eval('(ship_date == ship_date_truck) & (door_id == door_id_truck) & (route_id == route_id_truck)').all(),'outbound truck metadata mismatch')
+    # Slot fit for all historical and stock placements.
+    for tbl,slotcol in [(ib,'putaway_slot'),(ob,'picked_from_slot'),(opening,'slot_id'),(closing,'slot_id')]:
+        fitted=tbl[['sku_id',slotcol]].merge(sku[['sku_id','pallet_height_in']],on='sku_id').merge(slots[['slot_id','max_pallet_in']],left_on=slotcol,right_on='slot_id')
+        check((fitted.pallet_height_in<=fitted.max_pallet_in+1e-6).all(),f'height violation in {slotcol}')
+    # 1a client profile
+    client=c.merge(sites.groupby('client_id').agg(states=('state','nunique'),cities=('city','nunique')).reset_index(),on='client_id')
+    shipped=ob.groupby('client_id').size().rename('pallets_shipped_year')
+    client=client.join(shipped,on='client_id').fillna({'pallets_shipped_year':0})
+    client['pallets_per_week']=client.pallets_shipped_year/52
+    client['share_of_shipped_pct']=100*client.pallets_shipped_year/len(ob)
+    client['pallets_per_store_per_week']=client.pallets_per_week/client.sites
+    client=client.sort_values('pallets_shipped_year',ascending=False)
+    write(client,out,'1a_client_profile')
+    geography=sites.groupby(['client_id','state']).size().rename('stores').reset_index().merge(c[['client_id','client_name']],on='client_id')
+    write(geography,out,'1a_client_states')
+    fig,ax=plt.subplots(figsize=(10,5));ax.barh(client.client_name[::-1],client.pallets_per_week[::-1]);ax.set_xlabel('Pallets shipped per week');ax.set_title('1(a) Client shipping volumes');plot_save(out,'1a_client_volumes')
+    piv=geography.pivot_table(index='client_name',columns='state',values='stores',fill_value=0).reindex(client.client_name)
+    piv.plot(kind='bar',stacked=True,figsize=(11,5));plt.ylabel('Restaurant sites');plt.title('1(a) Restaurant geography by client and state');plot_save(out,'1a_client_geography')
+    # 1b SKU velocity: A first 80% volume, B next 15%, C remaining 5%; boundary assigned by cumulative PRIOR to item, preserving whole SKUs.
+    velocity=sku.copy().merge(ob.groupby('sku_id').size().rename('pallets_shipped').reset_index(),on='sku_id',how='left')
+    velocity.pallets_shipped=velocity.pallets_shipped.fillna(0).astype(int)
+    velocity=velocity.sort_values(['pallets_shipped','sku_id'],ascending=[False,True]).reset_index(drop=True)
+    velocity['rank']=np.arange(1,len(velocity)+1)
+    velocity['cum_pallet_share']=velocity.pallets_shipped.cumsum()/len(ob)
+    velocity['prior_cum_share']=(velocity.pallets_shipped.cumsum()-velocity.pallets_shipped)/len(ob)
+    velocity['velocity_class']=np.select([velocity.prior_cum_share<.80,velocity.prior_cum_share<.95],['A','B'],default='C')
+    velocity['sku_percentile']=100*velocity['rank']/len(velocity)
+    write(velocity,out,'1b_sku_velocity')
+    classes=velocity.groupby('velocity_class').agg(skus=('sku_id','size'),pallets=('pallets_shipped','sum'),avg_height_in=('pallet_height_in','mean'),avg_weight_lb=('pallet_weight_lb','mean')).reset_index()
+    classes['volume_share_pct']=100*classes.pallets/len(ob);write(classes,out,'1b_velocity_class_summary')
+    fig,ax=plt.subplots(figsize=(9,5));ax.plot(np.r_[0,velocity['rank']/len(velocity)*100],np.r_[0,velocity.cum_pallet_share*100]);ax.axhline(80,ls='--',color='gray');ax.axhline(95,ls=':',color='gray');ax.set(xlabel='Top SKUs (%)',ylabel='Cumulative shipped pallets (%)',title='1(b) SKU velocity Pareto curve',xlim=(0,100),ylim=(0,101));plot_save(out,'1b_pareto')
+    fig,axs=plt.subplots(1,2,figsize=(11,4));
+    for ax,col,title in [(axs[0],'pallet_height_in','Pallet height (in)'),(axs[1],'pallet_weight_lb','Pallet weight (lb)')]:
+        for cl in ['A','B','C']:
+            v=velocity.loc[velocity.velocity_class==cl,col];ax.hist(v,bins=22,alpha=.45,label=f'{cl} ({len(v)} SKUs)')
+        ax.set(xlabel=title,ylabel='Number of SKUs');ax.legend()
+    fig.suptitle('1(b) Height and weight by velocity class (SKU counts)');plot_save(out,'1b_heights_weights')
+    # 1c shipping by operational week starting Monday; historical year 52 full weeks
+ob['week_index']=((ob.ship_date-START).dt.days//7)+1
+    weekly=ob.groupby('week_index').size().reindex(range(1,53),fill_value=0).rename('pallets').reset_index()
+    weekly['week_start']=START+pd.to_timedelta((weekly.week_index-1)*7,unit='D')
+    weekly['week_over_week_pct']=weekly.pallets.pct_change()*100
+    write(weekly,out,'1c_weekly_demand')
+    ob['weekday']=ob.ship_date.dt.day_name();ob['departure_hour']=ob.departs_at.dt.hour;ob['pick_hour']=ob.picked_at.dt.hour
+    daily_ship=ob.groupby('ship_date').size().reindex(DAYS,fill_value=0).rename('pallets')
+    daily_ship.rename_axis('date').reset_index().to_csv(out/'1c_daily_demand.csv',index=False)
+    weekday=daily_ship.groupby(daily_ship.index.day_name()).agg(['sum','mean','max']).reindex(['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday']).reset_index().rename(columns={'index':'weekday'})
+    write(weekday,out,'1c_weekday_demand')
+    hours=ob.groupby('departure_hour').size().reindex(range(24),fill_value=0).rename('pallets').reset_index();write(hours,out,'1c_hourly_departures')
+    pickhours=ob.groupby('pick_hour').size().reindex(range(24),fill_value=0).rename('pallets').reset_index();write(pickhours,out,'1c_hourly_picks')
+    fig,ax=plt.subplots(figsize=(11,4));ax.plot(weekly.week_start,weekly.pallets);ax.set(xlabel='Week starting',ylabel='Pallets shipped',title='1(c) Weekly outbound volume');plot_save(out,'1c_weekly_demand')
+    fig,axs=plt.subplots(1,2,figsize=(12,4));axs[0].bar(weekday['weekday'].str[:3],weekday['mean']);axs[0].set(title='Mean pallets per calendar weekday',ylabel='Pallets/day');axs[1].bar(hours.departure_hour,hours.pallets);axs[1].set(title='Pallets by scheduled truck departure hour',xlabel='Hour (24h)',ylabel='Pallets/year');plot_save(out,'1c_weekday_hour')
+    # 1d sites, routes, trucks
+    sitevol=sites.merge(ob.groupby('site_id').size().rename('pallets_year').reset_index(),on='site_id',how='left').fillna({'pallets_year':0})
+    sitevol['pallets_week']=sitevol.pallets_year/52
+    sitevol['delivery_weekdays']=sitevol.site_id.map(ob.groupby('site_id').weekday.apply(lambda s:', '.join(sorted(s.unique())))).fillna('none')
+    write(sitevol,out,'1d_restaurant_profile')
+    truckstats=trucks.copy();truckstats['weekday']=truckstats.ship_date.dt.day_name();truckstats['fill_pct']=100*truckstats.pallets/26
+    check((truckstats.pallets<=26).all(),'truck exceeds 26 pallets')
+    write(truckstats,out,'1d_truck_profile')
+    route=truckstats.groupby(['route_id','weekday']).agg(trucks=('truck_id','size'),avg_pallets=('pallets','mean'),avg_stops=('stops','mean'),min_pallets=('pallets','min'),max_pallets=('pallets','max')).reset_index()
+    write(route,out,'1d_route_profile')
+    trucksday=truckstats.groupby('ship_date').agg(trucks=('truck_id','size'),pallets=('pallets','sum')).reindex(DAYS,fill_value=0).rename_axis('date').reset_index()
+    write(trucksday,out,'1d_trucks_per_day')
+    fig,axs=plt.subplots(1,2,figsize=(12,4));axs[0].hist(truckstats.pallets,bins=np.arange(.5,27.5,1));axs[0].set(xlabel='Pallets/truck (26 max)',ylabel='Trucks/year',title='1(d) Truck load distribution');axs[1].hist(truckstats.stops,bins=np.arange(.5,truckstats.stops.max()+1.5,1));axs[1].set(xlabel='Stops/truck',ylabel='Trucks/year',title='Stops per truck');plot_save(out,'1d_truck_loads')
+    fig,ax=plt.subplots(figsize=(9,4));ax.hist(sitevol.pallets_week,bins=30);ax.set(xlabel='Pallets per restaurant per week',ylabel='Restaurant count',title='1(d) Restaurant demand distribution');plot_save(out,'1d_restaurant_demand')
+    # 1e purchase orders and supplier volumes
+    pos=ib.groupby(['po_id','supplier_id','receipt_date']).agg(pallets=('pallet_id','size'),distinct_skus=('sku_id','nunique'),doors=('door_id','nunique')).reset_index()
+    write(pos,out,'1e_purchase_orders')
+    supplier=sup.merge(ib.groupby('supplier_id').agg(pallets_received=('pallet_id','size'),purchase_orders=('po_id','nunique')).reset_index(),on='supplier_id',how='left').fillna({'pallets_received':0,'purchase_orders':0})
+    supplier['pallets_received']=supplier.pallets_received.astype(int);supplier['purchase_orders']=supplier.purchase_orders.astype(int)
+    supplier=supplier.sort_values('pallets_received',ascending=False);write(supplier,out,'1e_supplier_profile')
+    ib['week_index']=((ib.receipt_date-START).dt.days//7)+1
+    inweekly=ib.groupby('week_index').agg(pallets=('pallet_id','size'),orders=('po_id','nunique')).reindex(range(1,53),fill_value=0).rename_axis('week_index').reset_index()
+    write(inweekly,out,'1e_weekly_receipts')
+    night=ib.groupby('receipt_date').agg(pallets=('pallet_id','size'),orders=('po_id','nunique'),suppliers=('supplier_id','nunique')).reindex(DAYS,fill_value=0).rename_axis('date').reset_index()
+    night['weekday']=night.date.dt.day_name();write(night,out,'1e_receiving_nights')
+    fig,axs=plt.subplots(1,2,figsize=(12,4));axs[0].bar(supplier.head(15).supplier_id,supplier.head(15).pallets_received);axs[0].tick_params(axis='x',rotation=70);axs[0].set(title='1(e) Top 15 suppliers',ylabel='Pallets received');axs[1].hist(pos.pallets,bins=35);axs[1].set(title='Pallets per purchase order',xlabel='Pallets/order',ylabel='Orders');plot_save(out,'1e_supplier_orders')
+    fig,axs=plt.subplots(1,2,figsize=(12,4));axs[0].plot(inweekly.week_index,inweekly.pallets);axs[0].set(title='Inbound pallets per week',xlabel='Week',ylabel='Pallets');recvday=night.groupby('weekday').pallets.mean().reindex(['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sunday']);axs[1].bar(recvday.index.str[:3],recvday);axs[1].set(title='Average pallets by receiving weekday',ylabel='Pallets/night');plot_save(out,'1e_receiving_pattern')
+    # 1f end-of-day stock by SKU: opening stock exists before day shift on START; shipments before night receipts.
+    ids=sku.sku_id.to_list();dates=DAYS
+    startcounts=opening.groupby('sku_id').size().reindex(ids,fill_value=0)
+    daily_in=ib.groupby(['receipt_date','sku_id']).size().unstack(fill_value=0).reindex(index=dates,columns=ids,fill_value=0)
+    daily_out=ob.groupby(['ship_date','sku_id']).size().unstack(fill_value=0).reindex(index=dates,columns=ids,fill_value=0)
+    stock=(daily_in-daily_out).cumsum(axis=0).add(startcounts,axis=1)
+    check((stock>=0).to_numpy().all(),'negative SKU inventory at end of day')
+    check(stock.iloc[-1].equals(closing.groupby('sku_id').size().reindex(ids,fill_value=0)),'SKU closing balance mismatch')
+    # Day-shift picks precede night receipts: stock before receipts must cover all daily picks.
+    pre_receipts=stock-daily_in
+    check((pre_receipts>=0).to_numpy().all(),'daily picks exceed inventory available before night receipts')
+    stock.index.name='date';stock.to_csv(out/'1f_daily_stock_by_sku.csv')
+    total=stock.sum(axis=1)
+    daily=pd.DataFrame({'date':dates,'opening_of_day_pallets':(total-daily_in.sum(axis=1)+daily_out.sum(axis=1)).to_numpy(), 'received_pallets':daily_in.sum(axis=1).to_numpy(),'shipped_pallets':daily_out.sum(axis=1).to_numpy(),'end_of_day_pallets':total.to_numpy()})
+    daily['occupancy_pct']=100*daily.end_of_day_pallets/len(slots)
+    write(daily,out,'1f_daily_warehouse_inventory')
+    stockstats=pd.DataFrame({'sku_id':ids,'average_stock':stock.mean(axis=0).to_numpy(),'peak_stock':stock.max(axis=0).to_numpy(),'opening_stock':startcounts.to_numpy(),'closing_stock':stock.iloc[-1].to_numpy()})
+    stockstats=stockstats.merge(velocity[['sku_id','pallets_shipped','velocity_class','rank']],on='sku_id')
+    stockstats['days_of_shipments']=np.where(stockstats.pallets_shipped>0,stockstats.average_stock/(stockstats.pallets_shipped/364),np.nan)
+    write(stockstats,out,'1f_sku_stock_statistics')
+    write(stockstats[['sku_id','pallets_shipped','velocity_class','average_stock','peak_stock']],out,'TASK1_REQUIRED_sku_velocity_stock')
+    fig,ax=plt.subplots(figsize=(11,4));ax.plot(dates,total);ax.axhline(len(slots),ls='--',color='gray',label='Slot capacity');ax.set(xlabel='Date',ylabel='End-of-day pallets',title='1(f) Daily warehouse stock');ax.legend();plot_save(out,'1f_inventory_over_time')
+    fig,ax=plt.subplots(figsize=(9,4));ax.hist(stockstats.average_stock,bins=40);ax.set(xlabel='Average pallets per SKU',ylabel='Number of SKUs',title='1(f) Distribution of average SKU stock');plot_save(out,'1f_sku_stock_distribution')
+    # Extra pallet identity and FIFO checks: these are useful quality checks, not substitutes for Task 2.
+    source=pd.concat([opening[['pallet_id','sku_id','received_date']],ib[['pallet_id','sku_id','receipt_date']].rename(columns={'receipt_date':'received_date'})],ignore_index=True)
+    match=ob[['pallet_id','sku_id','received_date','ship_date']].merge(source,on='pallet_id',suffixes=('','_source'),validate='one_to_one')
+    check(len(match)==len(ob),'missing pallet source')
+    check((match.sku_id==match.sku_id_source).all() and (match.received_date==match.received_date_source).all(),'shipped pallet origin mismatch')
+    check((match.received_date<match.ship_date).all(),'same-day or future-dated shipment')
+    # Summary text
+    annual=len(ob);weeks=52
+    mean_stock=total.mean();peak_stock=total.max();avg_daily_ship=annual/364
+    summary={
+      'historical_days':len(DAYS),'weeks':weeks,'sites':len(sites),'skus':len(sku),'slots':len(slots),'clients':len(c),
+      'annual_shipped_pallets':annual,'annual_received_pallets':len(ib),'opening_pallets':len(opening),'closing_pallets':len(closing),
+      'avg_weekly_shipments':annual/weeks,'weekly_shipments_sd_sample':weekly.pallets.std(ddof=1),
+      'weekly_shipments_cv_pct':100*weekly.pallets.std(ddof=1)/weekly.pallets.mean(),
+      'peak_week':int(weekly.loc[weekly.pallets.idxmax(),'week_index']),'peak_week_pallets':int(weekly.pallets.max()),
+      'peak_shipping_date':str(daily_ship.idxmax().date()),'peak_shipping_day_pallets':int(daily_ship.max()),
+      'peak_departure_hour':int(hours.loc[hours.pallets.idxmax(),'departure_hour']),
+      'truck_count':len(trucks),'mean_truck_load':trucks.pallets.mean(),'mean_truck_fill_pct':100*trucks.pallets.mean()/26,
+      'purchase_orders':ib.po_id.nunique(),'purchase_orders_per_week':ib.po_id.nunique()/52,
+      'mean_skus_per_po':pos.distinct_skus.mean(),'mean_pallets_per_po':pos.pallets.mean(),
+      'mean_end_of_day_stock':mean_stock,'peak_end_of_day_stock':int(peak_stock),
+      'mean_occupancy_pct':100*mean_stock/len(slots),'peak_occupancy_pct':100*peak_stock/len(slots),
+      'mean_stock_days_of_shipments':mean_stock/avg_daily_ship,
+      'mean_stock_days_using_shipping_days':mean_stock/(annual/(52*6)),
+      'peak_receiving_date':str(night.loc[night.pallets.idxmax(),'date'].date()),'peak_receiving_pallets':int(night.pallets.max()),
+    }
+    pd.DataFrame([summary]).to_csv(out/'TASK1_summary_metrics.csv',index=False)
+    with (out/'TASK1_findings.md').open('w') as f:
+        f.write('# StackBay Task 1: computational findings\n\n')
+        f.write('**Method:** 52 Monday–Sunday weeks, July 7 2025–July 5 2026. All weekly averages divide by 52. Inventory is end-of-calendar-day, after day picks and night receipts; average stock is the mean of 364 daily end balances. A=SKUs up to approximately 80% of cumulative shipped volume; B=next approximately 15%; C=remainder. Entire SKUs are assigned by the cumulative share *before* each SKU, so boundaries can slightly exceed 80% and 95%. Ties sorted by SKU ID. Hourly outbound demand is measured both at truck departure and at recorded pick time. No seasonality is assumed without statistical evidence.\n\n')
+        for k,v in summary.items():f.write(f'- **{k}:** {v:,.3f}\n' if isinstance(v,(float,np.floating)) else f'- **{k}:** {v}\n')
+        f.write('\n## 1(a) Clients ranked by annual shipments\n\n'+client[['client_name','sites','skus','pallets_shipped_year','pallets_per_week','share_of_shipped_pct']].to_markdown(index=False,floatfmt='.2f')+'\n')
+        f.write('\n## 1(b) Velocity classes\n\n'+classes.to_markdown(index=False,floatfmt='.2f')+'\n')
+        f.write('\n## 1(e) Leading suppliers\n\n'+supplier[['supplier_id','skus','lead_time_days','pallets_received','purchase_orders']].head(12).to_markdown(index=False)+'\n')
+        f.write('\n## Notes and limitations\n\n- `days_of_shipments` for a SKU is undefined when annual shipments are zero; blank values are intentional.\n- Average and peak stock refer to daily **end-of-day** stock, not within-day peaks. Since outbound precedes inbound, nightly post-receipt stock is the end-of-day high point for that date.\n- The inventory coverage denominator uses all 364 calendar days; a separate 6-shipping-days/week measure is reported.\n- The distribution of truck loads is not proof of why a particular truck was underfilled; examine fixed route schedules, stop demand, and 26-pallet capacity before drawing causal conclusions.\n- The input data are synthetic; avoid inferring a seasonal pattern solely from weekly fluctuations.\n- This file provides computed evidence, not a finished three-page narrative.\n')
+    with (out/'validation.txt').open('w') as f:f.write('PASS: all structural, cross-file, slot fit, pallet identity, inventory and truck reconciliations implemented in task1_analysis.py\n')
+    print('SUCCESS: Task 1(a-f) completed. Output:',out)
+    print(pd.Series(summary).to_string())
+
+if __name__=='__main__':
+    ap=argparse.ArgumentParser();ap.add_argument('--data',type=Path,default=Path('.'));ap.add_argument('--out',type=Path,default=Path('outputs'));a=ap.parse_args();main(a.data,a.out)
 
 
-def save(fig, name):
-    fig.tight_layout()
-    fig.savefig(f"{OUT}/{name}.png", dpi=150)
-    plt.close(fig)
 
 
-def show(title, df):
-    print(f"\n=== {title} ===")
-    print(df.to_string())
 
 
-# ---------------------------------------------------------------------------
-# 0. Load data
-# ---------------------------------------------------------------------------
-out = pd.read_csv(f"{DATA}/outbound.csv",
-                  parse_dates=["ship_date", "picked_at", "departs_at", "received_date"])
-inb = pd.read_csv(f"{DATA}/inbound.csv", parse_dates=["receipt_date", "arrived_at", "putaway_at"])
-trucks = pd.read_csv(f"{DATA}/trucks.csv", parse_dates=["ship_date", "departs_at"])
-skus = pd.read_csv(f"{DATA}/skus.csv")
-clients = pd.read_csv(f"{DATA}/clients.csv")
-sites = pd.read_csv(f"{DATA}/client_sites.csv")
-suppliers = pd.read_csv(f"{DATA}/suppliers.csv")
-opening = pd.read_csv(f"{DATA}/opening_stock.csv", parse_dates=["received_date"])
-current = pd.read_csv(f"{DATA}/current_stock.csv", parse_dates=["received_date"])
-slots = pd.read_csv(f"{DATA}/slots.csv")
 
-START, END = pd.Timestamp("2025-07-07"), pd.Timestamp("2026-07-05")
-DAYS = pd.date_range(START, END, freq="D")
-N_WEEKS = len(DAYS) / 7                                   # 52.0
-assert len(slots) == N_SLOTS, "slot count differs from the brief"
-assert out.pallet_id.is_unique and inb.pallet_id.is_unique
-# Stock balance check: opening + receipts - shipments = closing stock
-assert len(opening) + len(inb) - len(out) == len(current)
-
-out["week"] = (out.ship_date - START).dt.days // 7 + 1
-inb["week"] = (inb.receipt_date - START).dt.days // 7 + 1
-out = out.merge(skus[["sku_id", "pallet_height_in", "pallet_weight_lb", "category"]], on="sku_id", how="left")
-out = out.merge(sites[["site_id", "city", "state"]], on="site_id", how="left")
-
-# ---------------------------------------------------------------------------
-# 1a. Clients
-# ---------------------------------------------------------------------------
-cl = (out.groupby("client_id")
-      .agg(pallets=("pallet_id", "size"),
-           sites_served=("site_id", "nunique"),
-           skus_shipped=("sku_id", "nunique"),
-           states=("state", "nunique"))
-      .join(clients.set_index("client_id")[["client_name", "sites", "skus"]]))
-cl["pallets_per_week"] = cl.pallets / N_WEEKS
-cl["pallets_per_site_week"] = cl.pallets_per_week / cl.sites
-cl["share_pallets_%"] = 100 * cl.pallets / cl.pallets.sum()
-cl = cl.sort_values("pallets", ascending=False)
-cl["cum_share_%"] = cl["share_pallets_%"].cumsum()
-stock_by_client = (pd.concat([opening, current]).merge(skus[["sku_id", "client_id"]], on="sku_id")
-                   .groupby("client_id").size() / 2).rename("avg_stock_pallets_open_close")
-cl = cl.join(stock_by_client)
-cl = cl[["client_name", "sites", "skus", "skus_shipped", "states", "pallets", "pallets_per_week",
-         "pallets_per_site_week", "share_pallets_%", "cum_share_%", "avg_stock_pallets_open_close"]]
-cl.round(2).to_csv(f"{OUT}/1a_clients.csv")
-show("1a Clients", cl.round(1))
-
-geo = sites.groupby(["client_id", "state"]).size().unstack(fill_value=0)
-geo.to_csv(f"{OUT}/1a_sites_by_state.csv")
-show("1a Restaurants by state", geo)
-
-fig, ax = plt.subplots(figsize=(8, 4))
-ax.bar(cl.client_name.str.replace(" Restaurants", ""), cl.pallets_per_week, color="#2563eb")
-for i, v in enumerate(cl.pallets_per_week):
-    ax.text(i, v + 5, f"{v:.0f}", ha="center", fontsize=8)
-ax.set_ylabel("Pallets shipped per week")
-ax.set_title("1a. Pallets shipped per week by client")
-save(fig, "1a_pallets_per_week_by_client")
-
-fig, ax = plt.subplots(figsize=(7, 6))
-for c, g in sites.groupby("client_id"):
-    jit = np.random.default_rng(0).normal(0, 0.03, (len(g), 2))
-    ax.scatter(g.lon + jit[:, 0], g.lat + jit[:, 1], s=8, alpha=0.6,
-               label=clients.set_index("client_id").client_name[c].replace(" Restaurants", ""))
-ax.set_xlabel("Longitude"); ax.set_ylabel("Latitude")
-ax.set_title("1a. Restaurant locations by client (nearest city)")
-ax.legend(fontsize=7, markerscale=2)
-save(fig, "1a_restaurant_map")
-
-# ---------------------------------------------------------------------------
-# 1b. SKUs: ranking, cumulative curve, velocity classes, heights and weights
-# ---------------------------------------------------------------------------
-sk = skus.set_index("sku_id").copy()
-sk["pallets_shipped"] = out.groupby("sku_id").size().reindex(sk.index, fill_value=0)
-sk["pallets_per_week"] = sk.pallets_shipped / N_WEEKS
-sk = sk.sort_values("pallets_shipped", ascending=False)
-sk["rank"] = np.arange(1, len(sk) + 1)
-sk["cum_share_pallets"] = sk.pallets_shipped.cumsum() / sk.pallets_shipped.sum()
-
-
-def velocity_class(ppw):
-    for name, lo in CLASS_CUTS:
-        if ppw >= lo:
-            return name
-    return CLASS_CUTS[-1][0]
-
-
-sk["velocity_class"] = sk.pallets_per_week.apply(velocity_class)
-sk["top5pct"] = sk["rank"] <= np.ceil(0.05 * len(sk))       # fastest 5% (needed in Task 3c)
-
-cls = (sk.groupby("velocity_class")
-       .agg(skus=("rank", "size"), pallets=("pallets_shipped", "sum"),
-            min_ppw=("pallets_per_week", "min"), max_ppw=("pallets_per_week", "max"),
-            mean_height_in=("pallet_height_in", "mean"), mean_weight_lb=("pallet_weight_lb", "mean")))
-cls["share_skus_%"] = 100 * cls.skus / cls.skus.sum()
-cls["share_pallets_%"] = 100 * cls.pallets / cls.pallets.sum()
-cls.round(2).to_csv(f"{OUT}/1b_velocity_classes.csv")
-show("1b Velocity classes (cut-offs on pallets/week: A>=5, B 1-5, C 0.2-1, D<0.2)", cls.round(2))
-
-pts = {q: int((sk.cum_share_pallets <= q).sum()) for q in [0.5, 0.8, 0.95]}
-print("\nSKUs needed for 50% / 80% / 95% of pallets:", pts,
-      "| SKUs never shipped:", int((sk.pallets_shipped == 0).sum()))
-
-fig, ax = plt.subplots(figsize=(8, 5))
-x = 100 * sk["rank"] / len(sk)
-ax.plot(x, 100 * sk.cum_share_pallets, color="#1e3a5f", lw=2)
-colors = {"A": "#dc2626", "B": "#f59e0b", "C": "#10b981", "D": "#64748b"}
-for c, g in sk.groupby("velocity_class"):
-    ax.axvspan(100 * (g["rank"].min() - 1) / len(sk), 100 * g["rank"].max() / len(sk),
-               color=colors[c], alpha=0.12, label=f"Class {c}: {len(g)} SKUs, "
-               f"{100 * g.pallets_shipped.sum() / sk.pallets_shipped.sum():.0f}% of pallets")
-ax.set_xlabel("% of SKUs (ranked by pallets shipped)")
-ax.set_ylabel("Cumulative % of pallets shipped")
-ax.set_title("1b. Cumulative pallets shipped vs SKUs, with velocity classes")
-ax.legend(loc="lower right", fontsize=8); ax.grid(alpha=0.3)
-save(fig, "1b_cumulative_curve")
-
-# Heights and weights, counted per pallet shipped (what forklifts actually move)
-hw = out.merge(sk[["velocity_class"]], left_on="sku_id", right_index=True)
-hw_tab = hw.groupby("velocity_class")[["pallet_height_in", "pallet_weight_lb"]].describe(
-    percentiles=[0.1, 0.5, 0.9]).round(0)
-hw_tab.to_csv(f"{OUT}/1b_height_weight_by_class.csv")
-show("1b Pallet height and weight per shipped pallet, by class", hw_tab)
-
-fig, axes = plt.subplots(1, 2, figsize=(11, 4))
-for c in ["A", "B", "C", "D"]:
-    g = hw[hw.velocity_class == c]
-    axes[0].hist(g.pallet_height_in, bins=range(24, 92, 4), alpha=0.5, label=c, color=colors[c])
-    axes[1].hist(g.pallet_weight_lb, bins=range(0, 2500, 100), alpha=0.5, label=c, color=colors[c])
-axes[0].set_xlabel("Pallet height (in)"); axes[1].set_xlabel("Pallet weight (lb)")
-for a in axes:
-    a.set_ylabel("Pallets shipped"); a.legend(title="Class")
-fig.suptitle("1b. Height and weight of shipped pallets by velocity class")
-save(fig, "1b_height_weight")
-
-# ---------------------------------------------------------------------------
-# 1c. Demand over time
-# ---------------------------------------------------------------------------
-wk = out.groupby("week").size().reindex(range(1, 53), fill_value=0)
-slope, intercept = np.polyfit(wk.index, wk.values, 1)
-cv = wk.std() / wk.mean()
-wow = wk.diff().abs()
-print(f"\n=== 1c Weekly pallets: mean {wk.mean():.0f}, sd {wk.std():.0f}, CV {cv:.3f}, "
-      f"min {wk.min()} (wk {wk.idxmin()}), max {wk.max()} (wk {wk.idxmax()}), "
-      f"trend {slope:+.2f} pallets/week per week, mean |week-to-week change| {wow.mean():.0f} "
-      f"(max {wow.max():.0f}), peak factor p95/mean {wk.quantile(0.95) / wk.mean():.2f}")
-mon = out.groupby(out.ship_date.dt.to_period("M")).size()
-ship_days = out.groupby(out.ship_date.dt.to_period("M")).ship_date.nunique()
-mon_idx = (mon / ship_days) / (len(out) / out.ship_date.nunique())
-show("1c Seasonality index by month (pallets per shipping day / annual average)", mon_idx.round(3).to_frame("index"))
-
-fig, ax = plt.subplots(figsize=(10, 4))
-ax.plot(wk.index, wk.values, marker="o", ms=3, label="Pallets shipped")
-ax.plot(wk.index, wk.rolling(4, center=True).mean(), lw=2, label="4-week moving average")
-ax.plot(wk.index, intercept + slope * wk.index, "--", label=f"Linear trend ({slope:+.1f}/week)")
-ax.set_xlabel("Week of the historical year (week 1 starts Mon 7 Jul 2025)")
-ax.set_ylabel("Pallets shipped"); ax.set_title("1c. Pallets shipped per week")
-ax.legend(); ax.grid(alpha=0.3)
-save(fig, "1c_weekly")
-
-daily = out.groupby("ship_date").size()
-dow = daily.groupby(daily.index.day_name()).agg(["mean", "std", "max", "count"]).reindex(WEEKDAYS)
-dow["share_%"] = 100 * out.ship_date.dt.day_name().value_counts().reindex(WEEKDAYS) / len(out)
-show("1c Pallets shipped per day of week", dow.round(1))
-rdaily = inb.groupby("receipt_date").size()
-rdow = rdaily.groupby(rdaily.index.day_name()).agg(["mean", "std", "max", "count"]).reindex(WEEKDAYS)
-show("1c Pallets received per night by day of week", rdow.round(1))
-
-hr_out = out.groupby(out.picked_at.dt.hour).size() / out.ship_date.nunique()
-hr_in = inb.groupby(inb.putaway_at.dt.hour).size() / inb.receipt_date.nunique()
-hr_dep = trucks.groupby(trucks.departs_at.dt.hour).size() / trucks.ship_date.nunique()
-show("1c Average pallets picked per hour (day shift)", hr_out.round(1).to_frame("pallets/h"))
-show("1c Average pallets put away per hour (night shift)", hr_in.round(1).to_frame("pallets/h"))
-
-fig, axes = plt.subplots(1, 2, figsize=(12, 4))
-axes[0].bar(dow.index.str[:3], dow["mean"], yerr=dow["std"], color="#2563eb", capsize=3)
-axes[0].bar(rdow.index.str[:3], -rdow["mean"].fillna(0), color="#f59e0b")
-axes[0].axhline(0, color="k", lw=0.8)
-axes[0].set_ylabel("Pallets per day (shipped up, received down)")
-axes[0].set_title("Day of week")
-axes[1].bar(hr_out.index, hr_out.values, color="#2563eb", label="picked (day shift)")
-axes[1].bar(hr_in.index, hr_in.values, color="#f59e0b", label="put away (night shift)")
-axes[1].set_xlabel("Hour of day"); axes[1].set_ylabel("Average pallets per hour")
-axes[1].set_title("Hour of day"); axes[1].legend()
-fig.suptitle("1c. Flows by day of week and hour of day")
-save(fig, "1c_day_hour")
-
-# ---------------------------------------------------------------------------
-# 1d. Restaurants, routes and trucks
-# ---------------------------------------------------------------------------
-site = out.groupby("site_id").agg(client_id=("client_id", "first"), pallets=("pallet_id", "size"),
-                                  delivery_days=("ship_date", "nunique"),
-                                  weekdays=("ship_date", lambda d: d.dt.day_name().nunique()))
-site["pallets_per_week"] = site.pallets / N_WEEKS
-site["deliveries_per_week"] = site.delivery_days / N_WEEKS
-site["pallets_per_delivery"] = site.pallets / site.delivery_days
-site.round(2).to_csv(f"{OUT}/1d_restaurants.csv")
-show("1d Restaurants: distribution", site[["pallets_per_week", "deliveries_per_week", "pallets_per_delivery",
-                                           "weekdays"]].describe().round(2))
-show("1d Restaurants by number of delivery weekdays", site.weekdays.value_counts().sort_index().to_frame("sites"))
-show("1d Restaurants per client: pallets per week (median)",
-     site.groupby("client_id").pallets_per_week.describe()[["count", "50%", "mean", "max"]].round(2))
-
-trucks["weekday"] = trucks.ship_date.dt.day_name()
-trucks["fill_%"] = 100 * trucks.pallets / TRUCK_CAP
-tpd = trucks.groupby("ship_date").size()
-tdow = trucks.groupby("weekday").agg(trucks_per_day=("truck_id", "size"), pallets=("pallets", "mean"),
-                                     stops=("stops", "mean"), fill=("fill_%", "mean")).reindex(WEEKDAYS)
-tdow["trucks_per_day"] = tdow.trucks_per_day / trucks.groupby("weekday").ship_date.nunique().reindex(WEEKDAYS)
-show("1d Trucks by weekday", tdow.round(1))
-print(f"Routes: {trucks.route_id.nunique()} | trucks/day mean {tpd.mean():.1f} (min {tpd.min()}, max {tpd.max()})"
-      f" | pallets/truck mean {trucks.pallets.mean():.1f} | stops/truck mean {trucks.stops.mean():.1f}"
-      f" | average fill {trucks['fill_%'].mean():.0f}% | trucks <50% full: {100 * (trucks['fill_%'] < 50).mean():.1f}%")
-
-# Why are some trucks nearly empty? Compare low vs high fill, and route-level stability.
-per_truck = out.groupby("truck_id").agg(clients=("client_id", "nunique"), states=("state", "nunique"),
-                                        sites=("site_id", "nunique"))
-tt = trucks.set_index("truck_id").join(per_truck)
-tt["fill_band"] = pd.cut(tt["fill_%"], [0, 50, 85, 100], labels=["<50%", "50-85%", ">85%"], include_lowest=True)
-band = tt.groupby("fill_band", observed=True).agg(trucks=("pallets", "size"), pallets=("pallets", "mean"),
-                                                  stops=("stops", "mean"), clients=("clients", "mean"),
-                                                  states=("states", "mean"))
-show("1d Low-fill vs full trucks", band.round(2))
-rt = tt.groupby("route_id").agg(weekday=("weekday", "first"), runs=("pallets", "size"),
-                                mean_pallets=("pallets", "mean"), sd_pallets=("pallets", "std"),
-                                mean_stops=("stops", "mean"), max_pallets=("pallets", "max"))
-rt["mean_fill_%"] = 100 * rt.mean_pallets / TRUCK_CAP
-rt["sites_on_route"] = out.groupby("route_id").site_id.nunique()
-rt["share_of_route_sites_per_run_%"] = 100 * rt.mean_stops / rt.sites_on_route
-print(f"\nRoutes visit on average {rt.sites_on_route.mean():.1f} distinct restaurants over the year but "
-      f"{rt.mean_stops.mean():.1f} stops per run ({rt['share_of_route_sites_per_run_%'].mean():.0f}%): "
-      f"a restaurant on a route is not served every week, so the load of a fixed route varies week to week.")
-rt.round(2).sort_values("mean_fill_%").to_csv(f"{OUT}/1d_routes.csv")
-show("1d Emptiest and fullest routes", pd.concat([rt.sort_values("mean_fill_%").head(5),
-                                                  rt.sort_values("mean_fill_%").tail(5)]).round(1))
-print(f"Correlation pallets vs stops per truck: {tt.pallets.corr(tt.stops):.2f}")
-print(f"Share of fill variance explained by route (between-route): "
-      f"{1 - (tt.groupby('route_id').pallets.transform('var').mean() / tt.pallets.var()):.2f}")
-
-fig, axes = plt.subplots(1, 3, figsize=(14, 4))
-axes[0].hist(trucks.pallets, bins=range(0, 28), color="#2563eb")
-axes[0].axvline(TRUCK_CAP, color="r", ls="--", label="capacity 26")
-axes[0].set_xlabel("Pallets per truck"); axes[0].set_ylabel("Trucks"); axes[0].legend()
-axes[1].hist(trucks.stops, bins=range(0, 18), color="#10b981")
-axes[1].set_xlabel("Stops per truck")
-axes[2].scatter(tt.stops + np.random.default_rng(1).normal(0, 0.15, len(tt)), tt.pallets, s=4, alpha=0.3)
-axes[2].set_xlabel("Stops per truck"); axes[2].set_ylabel("Pallets per truck")
-fig.suptitle("1d. Outbound trucks: load, stops and their relationship")
-save(fig, "1d_trucks")
-
-# ---------------------------------------------------------------------------
-# 1e. Supply
-# ---------------------------------------------------------------------------
-po = inb.groupby("po_id").agg(supplier_id=("supplier_id", "first"), date=("receipt_date", "first"),
-                              skus=("sku_id", "nunique"), pallets=("pallet_id", "size"),
-                              arrived=("arrived_at", "first"))
-po["week"] = (po.date - START).dt.days // 7 + 1
-pow_ = po.groupby("week").size()
-print(f"\n=== 1e Purchase orders: {len(po)} in the year, {pow_.mean():.1f} per week (min {pow_.min()}, "
-      f"max {pow_.max()}); SKUs per PO mean {po.skus.mean():.2f} (median {po.skus.median():.0f}); "
-      f"pallets per PO mean {po.pallets.mean():.1f} (median {po.pallets.median():.0f}, max {po.pallets.max()})")
-sup = (inb.groupby("supplier_id").agg(pallets=("pallet_id", "size"), pos=("po_id", "nunique"),
-                                      skus_received=("sku_id", "nunique"),
-                                      delivery_weekdays=("receipt_date", lambda d: d.dt.day_name().nunique()))
-       .join(suppliers.set_index("supplier_id")).sort_values("pallets", ascending=False))
-sup["share_%"] = 100 * sup.pallets / sup.pallets.sum()
-sup["cum_share_%"] = sup["share_%"].cumsum()
-sup.round(2).to_csv(f"{OUT}/1e_suppliers.csv")
-show("1e Top 15 suppliers by pallets received", sup.head(15).round(1))
-print(f"Suppliers for 50% / 80% of pallets: {(sup['cum_share_%'] <= 50).sum() + 1} / "
-      f"{(sup['cum_share_%'] <= 80).sum() + 1} of {len(sup)}")
-lt = np.repeat(sup.lead_time_days.values, sup.pallets.values)
-print(f"Lead time (days): suppliers mean {suppliers.lead_time_days.mean():.1f}, range "
-      f"{suppliers.lead_time_days.min()}-{suppliers.lead_time_days.max()}; pallet-weighted mean {lt.mean():.1f}")
-
-night = inb.groupby("receipt_date").agg(pallets=("pallet_id", "size"), pos=("po_id", "nunique"),
-                                        trucks=("door_id", "nunique"), first_arrival=("arrived_at", "min"),
-                                        last_putaway=("putaway_at", "max"))
-night["weekday"] = night.index.day_name()
-night["finish_hours_after_16h"] = (night.last_putaway - night.index - pd.Timedelta(hours=16)).dt.total_seconds() / 3600
-# Night-shift forklift hours from the modeling rules (put-away slot move + 1.8 min unload dock move)
-inb["move_min"] = 2 * inb.travel_ft / 264 + 2 * inb.lift_ft / 60 + 1.5
-night["putaway_hours"] = inb.groupby("receipt_date").move_min.sum() / 60
-night["forklift_hours_incl_unload"] = night.putaway_hours + night.pallets * 1.8 / 60
-night.round({c: 2 for c in night.select_dtypes("number").columns}).to_csv(f"{OUT}/1e_receiving_nights.csv")
-show("1e Receiving nights by weekday", night.groupby("weekday")[["pallets", "pos", "putaway_hours",
-                                                                 "forklift_hours_incl_unload",
-                                                                 "finish_hours_after_16h"]]
-     .agg(["mean", "max"]).reindex([d for d in WEEKDAYS if d in night.weekday.values]).round(1))
-print(f"Pallets per night: mean {night.pallets.mean():.0f}, p95 {night.pallets.quantile(.95):.0f}, "
-      f"max {night.pallets.max()} | forklift hours per night (put-away + unload): mean "
-      f"{night.forklift_hours_incl_unload.mean():.1f}, max {night.forklift_hours_incl_unload.max():.1f} "
-      f"-> forklifts needed over a 7.5 h shift (16:30-24:00), peak night: "
-      f"{night.forklift_hours_incl_unload.max() / 7.5:.1f}")
-
-fig, axes = plt.subplots(1, 3, figsize=(14, 4))
-axes[0].plot(100 * np.arange(1, len(sup) + 1) / len(sup), sup["cum_share_%"].values, lw=2)
-axes[0].set_xlabel("% of suppliers"); axes[0].set_ylabel("Cumulative % of pallets received")
-axes[0].set_title("Supplier concentration"); axes[0].grid(alpha=0.3)
-axes[1].hist(po.pallets, bins=40, color="#f59e0b")
-axes[1].set_xlabel("Pallets per purchase order"); axes[1].set_ylabel("POs"); axes[1].set_title("PO size")
-nd = night.groupby("weekday").pallets.mean().reindex(["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"])
-axes[2].bar(nd.index.str[:3], nd.values, color="#f59e0b")
-axes[2].set_ylabel("Pallets received per night"); axes[2].set_title("Receiving nights")
-fig.suptitle("1e. Supply")
-save(fig, "1e_supply")
-
-# ---------------------------------------------------------------------------
-# 1f. Daily stock reconstruction (end of day, i.e. after that night's receipts)
-#     S(t) = opening + receipts(date <= t) - shipments(date <= t)
-# ---------------------------------------------------------------------------
-sku_ids = skus.sku_id
-rec = inb.pivot_table(index="receipt_date", columns="sku_id", values="pallet_id", aggfunc="size") \
-         .reindex(index=DAYS, columns=sku_ids, fill_value=0).fillna(0)
-shp = out.pivot_table(index="ship_date", columns="sku_id", values="pallet_id", aggfunc="size") \
-         .reindex(index=DAYS, columns=sku_ids, fill_value=0).fillna(0)
-open_s = opening.groupby("sku_id").size().reindex(sku_ids, fill_value=0)
-stock = open_s + (rec - shp).cumsum()                                  # days x SKUs, end of day
-
-neg = (stock < 0).sum().sum()
-print(f"\n=== 1f Daily stock: negative SKU-days = {neg} (must be 0)")
-close_check = (stock.iloc[-1] - current.groupby("sku_id").size().reindex(sku_ids, fill_value=0)).abs().sum()
-print(f"Closing stock matches current_stock.csv: {close_check == 0}")
-
-total = stock.sum(axis=1)
-avg_ship_shipday = len(out) / out.ship_date.nunique()
-avg_ship_calday = len(out) / len(DAYS)
-summary = pd.DataFrame({
-    "pallets": [total.mean(), total.max(), total.min()],
-    "share_of_slots_%": [100 * total.mean() / N_SLOTS, 100 * total.max() / N_SLOTS, 100 * total.min() / N_SLOTS],
-    "days_of_shipments_(per shipping day)": [total.mean() / avg_ship_shipday, total.max() / avg_ship_shipday,
-                                            total.min() / avg_ship_shipday],
-    "days_of_shipments_(per calendar day)": [total.mean() / avg_ship_calday, total.max() / avg_ship_calday,
-                                            total.min() / avg_ship_calday]},
-    index=["average", f"peak ({total.idxmax().date()})", f"minimum ({total.idxmin().date()})"])
-summary.round(2).to_csv(f"{OUT}/1f_stock_summary.csv")
-show("1f Total stock in the building (end of day)", summary.round(1))
-print(f"Shipments per shipping day {avg_ship_shipday:.1f}, per calendar day {avg_ship_calday:.1f}")
-total.to_frame("pallets_in_stock").to_csv(f"{OUT}/1f_daily_stock_total.csv")
-stock.to_csv(f"{OUT}/1f_daily_stock_by_sku.csv")
-
-fig, ax = plt.subplots(figsize=(10, 4))
-ax.plot(total.index, total.values, lw=1.5)
-ax.axhline(N_SLOTS, color="r", ls="--", label=f"slots ({N_SLOTS})")
-ax.axhline(total.mean(), color="gray", ls=":", label=f"average ({total.mean():.0f})")
-ax.set_ylabel("Pallets in the building"); ax.set_ylim(0, N_SLOTS * 1.05)
-ax.set_title("1f. Pallets in stock at the end of each day"); ax.legend()
-save(fig, "1f_daily_stock")
-
-cls_stock = stock.T.groupby(sk.velocity_class.reindex(stock.columns)).sum().T
-fig, ax = plt.subplots(figsize=(10, 4))
-ax.stackplot(cls_stock.index, [cls_stock[c] for c in ["A", "B", "C", "D"]],
-             labels=[f"Class {c}" for c in "ABCD"], colors=[colors[c] for c in "ABCD"], alpha=0.8)
-ax.set_ylabel("Pallets in stock"); ax.set_title("1f. Stock by velocity class"); ax.legend(loc="upper left")
-save(fig, "1f_stock_by_class")
-show("1f Average stock by class (pallets, % of stock)",
-     pd.DataFrame({"avg_pallets": cls_stock.mean(), "share_%": 100 * cls_stock.mean() / total.mean()}).round(1))
-
-# ---------------------------------------------------------------------------
-# Required deliverable: velocity class and stock file, one row per SKU
-# ---------------------------------------------------------------------------
-vfile = pd.DataFrame({
-    "sku_id": sk.index,
-    "client_id": sk.client_id,
-    "pallets_shipped": sk.pallets_shipped,
-    "pallets_per_week": sk.pallets_per_week.round(3),
-    "rank": sk["rank"],
-    "velocity_class": sk.velocity_class,
-    "top5pct_fastest": sk.top5pct,
-    "avg_stock_pallets": stock.mean().reindex(sk.index).round(2),
-    "peak_stock_pallets": stock.max().reindex(sk.index),
-}).reset_index(drop=True)
-vfile.to_csv(f"{OUT}/velocity_class_and_stock.csv", index=False)
-print(f"\nWrote {OUT}/velocity_class_and_stock.csv ({len(vfile)} SKUs). "
-      f"Sum of SKU peaks = {vfile.peak_stock_pallets.sum():.0f} pallets "
-      f"({100 * vfile.peak_stock_pallets.sum() / N_SLOTS:.0f}% of slots) vs building peak {total.max():.0f}")
-print("Done. All tables and charts are in", OUT)
