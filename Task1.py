@@ -230,3 +230,126 @@ plt.show()
 # save classes for Part f and Tasks 2-3
 sku_velocity_df.to_csv("Output/Task1b_SKU_Velocity.csv", index=False)
 class_summary_df.to_csv("Output/Task1b_Class_Summary.csv", index=False)
+
+ # -------- Part c --------
+demand_df = outbound_df[["pallet_id", "client_id", "ship_date", "picked_at"]].copy()
+demand_df["ship_date"] = pd.to_datetime(demand_df["ship_date"])
+demand_df["picked_at"] = pd.to_datetime(demand_df["picked_at"])
+demand_df["week"] = (demand_df["ship_date"] - demand_df["ship_date"].min()).dt.days // 7 + 1
+demand_df["day_of_week"] = demand_df["ship_date"].dt.day_name()
+demand_df["hour"] = demand_df["picked_at"].dt.hour
+
+shipping_days = demand_df["ship_date"].nunique()
+
+# pallets per week across the year
+weekly_df = (
+    demand_df.groupby("week")
+    .agg(week_start=("ship_date", "min"), pallets=("pallet_id", "size"))
+    .reset_index()
+)
+
+weekly_mean = weekly_df["pallets"].mean()
+weekly_cv = weekly_df["pallets"].std() / weekly_mean
+trend_per_week = np.polyfit(weekly_df["week"], weekly_df["pallets"], 1)[0] # slope of a linear fit
+
+print(f"Pallets per week: mean {weekly_mean:.0f}, min {weekly_df['pallets'].min()}, "
+      f"max {weekly_df['pallets'].max()}, CV {weekly_cv:.1%}")
+print(f"Trend: {trend_per_week:+.2f} pallets per week, per week ({trend_per_week * 52:+.0f} over the year)")
+
+
+# seasonality: average pallets per shipping day, by month
+monthly_df = (
+    demand_df.groupby(demand_df["ship_date"].dt.to_period("M"))
+    .agg(pallets=("pallet_id", "size"), days=("ship_date", "nunique"))
+    .reset_index()
+)
+monthly_df["pallets_per_day"] = monthly_df["pallets"] / monthly_df["days"]
+full_months = monthly_df[monthly_df["days"] >= 20] # july 2026 has only 4 shipping days
+print(f"Monthly average per shipping day (full months): {full_months['pallets_per_day'].min():.0f}"
+      f"-{full_months['pallets_per_day'].max():.0f} pallets")
+
+# week-to-week variability by client
+client_weekly = (
+    demand_df.groupby(["client_id", "week"])
+    .size()
+    .unstack("client_id", fill_value=0)
+)
+client_cv_df = (
+    (client_weekly.std() / client_weekly.mean())
+    .reset_index(name="weekly_cv")
+    .merge(clients_df[["client_id", "client_name"]], on="client_id")
+    .sort_values("weekly_cv")
+)
+display(client_cv_df.round(3))
+
+# pallets per day of week
+dow_order = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday"]
+daily_df = (
+    demand_df.groupby(["ship_date", "day_of_week"])
+    .size()
+    .reset_index(name="pallets")
+)
+
+dow_df = (
+    daily_df.groupby("day_of_week")["pallets"]
+    .agg(["mean", "min", "max"])
+    .reindex(dow_order)
+    .reset_index()
+)
+display(dow_df.round(0))
+
+print(f"Shipping days: {shipping_days}; pallets per day: mean {daily_df['pallets'].mean():.0f}, "
+      f"min {daily_df['pallets'].min()}, max {daily_df['pallets'].max()}")
+ 
+peak_days_df = daily_df.sort_values("pallets", ascending=False).head(10)
+display(peak_days_df)
+
+# pallets picked per hour of the day
+hourly_df = (
+    demand_df.groupby(["ship_date", "hour"])
+    .size()
+    .reset_index(name="picks")
+)
+avg_hour_df = (
+    hourly_df.groupby("hour")["picks"]
+    .sum()
+    .div(shipping_days)
+    .reset_index(name="avg_picks")
+)
+display(avg_hour_df.round(1))
+
+print(f"Busiest hour of the year: {hourly_df['picks'].max()} picks; "
+      f"95th percentile hour: {hourly_df['picks'].quantile(0.95):.0f} picks")
+
+ # validate
+assert len(weekly_df) == WEEKS
+assert weekly_df["pallets"].sum() == len(outbound_df)
+assert daily_df["pallets"].sum() == len(outbound_df)
+
+
+# chart: pallets per week across the year, and average pallets by day of week
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(10, 3.4), gridspec_kw={"width_ratios": [1.6, 1]})
+
+ax1.plot(weekly_df["week_start"], weekly_df["pallets"], color="#2a78d6", lw=2)
+ax1.axhline(weekly_mean, color="grey", lw=0.8, ls="--")
+ax1.set_ylim(0, weekly_df["pallets"].max() * 1.15)
+ax1.set_ylabel("Pallets shipped per week")
+ax1.set_title(f"Flat year: weekly CV {weekly_cv:.1%}, no trend", loc="left", fontweight="bold", fontsize=10)
+
+
+ax2.bar([d[:3] for d in dow_df["day_of_week"]], dow_df["mean"], color="#2a78d6", width=0.6)
+for i, v in enumerate(dow_df["mean"]):
+    ax2.text(i, v + 8, f"{v:.0f}", ha="center", fontsize=8)
+ax2.set_ylabel("Average pallets per day")
+ax2.set_title("Wednesday peak", loc="left", fontweight="bold", fontsize=10)
+
+for ax in (ax1, ax2):
+    ax.spines[["top", "right"]].set_visible(False)
+
+plt.tight_layout()
+plt.savefig("Output/Task1c_Demand_Over_Time.png", dpi=150)
+plt.show()
+
+weekly_df.to_csv("Output/Task1c_Weekly.csv", index=False)
+dow_df.to_csv("Output/Task1c_Day_Of_Week.csv", index=False)
+avg_hour_df.to_csv("Output/Task1c_Hourly.csv", index=False)
