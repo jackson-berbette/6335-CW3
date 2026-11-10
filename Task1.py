@@ -800,3 +800,14 @@ print(f"Average utilization: {avg_slot_util}")
 print(f"Peak utilization: {peak_slot_util}")
 print(f"Average stock: {avg_days:.2f} days of shipments")
 print(f"Peak stock: {peak_days:.2f} days of shipments")
+
+velocity_stock_df = sku_velocity_df.merge(
+    sku_stock_summary_df, on="sku_id", how="inner", validate="one_to_one"
+)
+velocity_stock_df = velocity_stock_df.drop(columns=[
+    "min_stock", "total_receipts", "total_shipments", "pallet_height_in",
+    "pallet_weight_lb", "pallets_wk", "rank", "cum_share", 
+    "days_shipped", "weeks_shipped", "share_of_days_shipped"
+    ])
+print(velocity_stock_df.head(5))
+velocity_stock_df.to_csv("Output/sku_velocity_and_stock.csv")
