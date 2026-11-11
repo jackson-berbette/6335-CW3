@@ -418,7 +418,9 @@ restaurant_summary_df = restaurant_summary_df.merge(
     on="site_id",
     how="left"
 )
-
+restaurant_summary_df = restaurant_summary_df.sort_values(
+    by="avg_pallets_per_week", ascending=False
+    )
 restaurant_summary_df.to_csv("Output/restaurant_pallets_per_week.csv")
 print(
     restaurant_summary_df["avg_pallets_per_week"]
