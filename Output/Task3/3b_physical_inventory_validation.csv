@@ -1,5 +1,0 @@
-check,passed
-opening slot uniqueness,True
-chronological pallet identity and slot vacancy,True
-closing pallet IDs and slot positions,True
-pallet height fits actual slot,True

@@ -105,8 +105,8 @@ results = [
 ]
 table = pd.DataFrame(results, columns=['area', 'measure', 'value', 'unit'])
 table['value'] = table.value.round(2)
-table.to_csv(OUT + 'Task3b_Baseline.csv', index=False)
-by_class.to_csv(OUT + 'Task3b_Days_In_Stock_By_Class.csv')
+# table.to_csv(OUT + 'Task3b_Baseline.csv', index=False)
+# by_class.to_csv(OUT + 'Task3b_Days_In_Stock_By_Class.csv')
 
 print(table.to_string(index=False))
 print('\nDays in stock by velocity class:\n', by_class)
