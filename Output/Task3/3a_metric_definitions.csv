@@ -1,0 +1,15 @@
+metric,calculation,source_files,can_storage_design_change
+one_way_slot_travel_ft,Sum travel_ft for all inbound and outbound pallets,"inbound.csv, outbound.csv",Yes: slot placement changes path
+round_trip_slot_travel_ft,2 * sum travel_ft for all inbound and outbound pallets,"inbound.csv, outbound.csv",Yes
+slot_move_labor_hours,Sum(2*travel_ft/264 + 2*lift_ft/60 + 1.5)/60,"inbound.csv, outbound.csv",Yes: travel and lift change
+dock_move_hours,1.8*(number of inbound + outbound pallets)/60,"inbound.csv, outbound.csv",No: fixed flow and handling rule
+total_handling_hours,slot_move_labor_hours + dock_move_hours,"inbound.csv, outbound.csv",Partly: slot component only
+mean_closing_slot_occupancy_pct,Mean over all 364 calendar days of daily closing pallets / 8365 * 100,"opening_stock.csv, inbound.csv, outbound.csv, slots.csv",No: inventory flow fixed
+peak_closing_slot_occupancy_pct,Maximum daily closing pallets / 8365 * 100,same as above,No: inventory flow fixed
+mean_unused_height_per_putaway_in,Mean(opening_height_in - pallet_height_in) across inbound pallet placements,"inbound.csv, slots.csv, skus.csv",Yes
+occupied_pallet_day_weighted_unused_height_in,Sum daily closing unused inches / sum daily closing pallet counts,"opening_stock.csv, inbound.csv, outbound.csv, slots.csv, skus.csv",Yes
+annual_pallets_received,Number of inbound.csv rows,inbound.csv,No: receipts fixed
+annual_pallets_shipped,Number of outbound.csv rows,outbound.csv,No: shipments fixed
+mean_closing_inventory_pallets,Mean daily closing pallet count,"opening_stock.csv, inbound.csv, outbound.csv",No: fixed flow
+peak_closing_inventory_pallets,Maximum daily closing pallet count,same as above,No: fixed flow
+mean_shipped_pallet_age_days,Mean days_in_stock for shipped pallets,outbound.csv,No: fixed pallet identities and dates

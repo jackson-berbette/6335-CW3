@@ -1,0 +1,11 @@
+stakeholder,metric,value,units,method,storage_design_effect
+StackBay,annual_slot_labor_hours,13264.049987373735,hours,Sum of all slot movement minutes /60,Placement changes travel and lift
+StackBay,annual_dock_labor_hours,6026.879999999999,hours,1.8 minutes times all pallet movements /60,Fixed by observed throughput
+StackBay,mean_daily_slot_occupancy,66.23309446082907,percent,Average daily closing occupied slots / total slots,Fixed pallet flow; placement does not change count
+StackBay,occupied_pallet_day_unused_height,21.605787162723352,inches,Sum unused opening inches on occupied pallet-days / occupied pallet-days,Changes with placement
+Clients,mean_shipped_pallet_age,20.221011216977477,days,Average shipped pallet days_in_stock,Fixed under identical shipment/receipt identities
+Clients,total_pallets_shipped,100651.0,pallets,Number of outbound pallet records,Fixed historical demand
+Forklift drivers,mean_roundtrip_travel_per_movement,564.218283091749,feet/movement,2*sum travel_ft / total pallet movements,Changes with placement
+Forklift drivers,mean_slot_minutes_per_movement,3.9614676212688362,minutes/movement,Sum slot minutes / total pallet movements,Changes with placement
+Forklift drivers,peak_day_slot_hours,31.891656565656564,hours,Max shipping-day slot work-hours,Changes with placement
+Forklift drivers,peak_night_slot_hours,54.39673737373737,hours,Max receiving-night slot work-hours,Changes with placement

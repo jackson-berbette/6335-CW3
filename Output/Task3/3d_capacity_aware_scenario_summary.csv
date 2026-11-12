@@ -1,0 +1,22 @@
+metric,value
+scenario,"Greedy closest-free-slot for fast SKUs, historical slot preference for other SKUs"
+initial_placements,Historical opening stock unchanged
+event_sequence,Daily picks before putaways; chronological within each shift
+fastest_sku_count,60
+movements,200896
+fast_receipts,51056
+putaways_with_different_slot,68277
+peak_end_of_day_occupied_slots,6260
+baseline_roundtrip_travel_ft,113349196.20000887
+scenario_roundtrip_travel_ft,88556294.60000472
+travel_savings_ft,24792901.60000415
+travel_savings_pct,21.87302815650863
+baseline_slot_labor_hours,13264.049987374132
+scenario_slot_labor_hours,11755.359664141706
+slot_labor_savings_hours,1508.6903232324248
+slot_labor_savings_pct,11.37428104288303
+fast_sku_baseline_travel_ft,57706376.79999939
+fast_sku_scenario_travel_ft,37603572.9999984
+fast_sku_baseline_slot_hours,6762.9724545452855
+fast_sku_scenario_slot_hours,5551.034886363655
+limitations,"One pallet per slot and daily availability enforced. Greedy, not globally optimized; ignores traffic and shift queuing. Historical picks fixed; actual slot assignments of non-fast SKUs may be displaced. No claim of realized savings."

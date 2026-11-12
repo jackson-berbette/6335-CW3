@@ -1,0 +1,21 @@
+area,measure,value,unit
+Travel,Average one-way travel per slot move,282.11,ft
+Travel,Total round-trip travel per year,21467.65,miles
+Travel,Average lift per slot move,9.73,ft
+Travel,Share of moves to level 4 or above,29.19,%
+Labour,Slot-move labour (Rule 4),255.08,h/week
+Labour,Slot-move labour (Rule 4),13264.05,h/year
+Labour,Minutes per handled pallet,3.96,min
+Labour,Dock-move hours,6026.88,h/year
+Space,Average slot occupancy,66.23,%
+Space,Peak slot occupancy,74.84,%
+Space,Average stock,5540.4,pallets
+Space,Peak stock,6260.0,pallets
+Space,Cube fill of occupied slots,66.87,%
+Fit,Unused height above pallet,21.15,in
+Fit,Unused height beyond 4 in clearance,17.15,in
+Fit,Put-aways with >= 24 in spare,25.14,%
+Fit,Short pallets (<= 72 in) in tall slots (> 72 in),25.61,% of tall-slot put-aways
+Fit,Pallets not fitting their slot,0.0,pallets
+Inventory,Average days in stock,20.22,days
+Inventory,FIFO compliance,100.0,% of picks
