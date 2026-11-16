@@ -1,0 +1,31 @@
+{
+  "2a": {
+    "aisles": 21,
+    "slots": 8365,
+    "dock_doors": 32,
+    "max_distance_difference_ft": 0.05000000000001137
+  },
+  "2b": {
+    "putaways": 100245,
+    "average_unused_height_in": 21.148516135468103,
+    "average_extra_clearance_in": 17.148516135468103,
+    "sampled_putaways": 2005,
+    "average_extra_distance_vs_nearest_ft": 124.79072319201997,
+    "final_occupancy_matches_current_stock": true
+  },
+  "2c": {
+    "shipped_pallets_audited": 100651,
+    "strict_fifo_exceptions": 4056,
+    "daily_batch_fifo_exceptions": 0,
+    "mean_residence_days": 20.221011216977477,
+    "maximum_residence_days": 453
+  },
+  "2d": {
+    "annual_rack_movement_hours": 13264.049987373739,
+    "annual_dock_movement_hours": 6026.880000000001,
+    "annual_total_movement_hours": 19290.929987373736,
+    "peak_day_shift_hours": 46.14165656565657,
+    "peak_night_shift_hours": 78.48673737373738,
+    "digital_twin_experiments": "Not run; fill template manually"
+  }
+}
