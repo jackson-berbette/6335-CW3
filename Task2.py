@@ -1712,10 +1712,8 @@ summary["2d"] = {
     ),
     "peak_night_shift_hours": float(
         night_work["total_hours"].max()
-    ),
-    "digital_twin_experiments": (
-        "Not run; fill template manually"
     )
+    
 }
 
 
