@@ -16,7 +16,7 @@ Required:
 
 Folder structure:
     StackBay/
-        StackBay_Task2.py
+        task2.py
         Task1b_SKU_Velocity.csv  (optional)
         Data/
             slots.csv
@@ -1760,22 +1760,15 @@ print(
     "\nRemaining work:"
 )
 
+
 print(
-    "1. Run the Digital Twin experiments manually."
+    "1. Inspect the facility map."
 )
 
 print(
-    "2. Record actual simulator results."
+    "2. Write the putaway-rule explanation."
 )
 
 print(
-    "3. Inspect the facility map."
-)
-
-print(
-    "4. Write the putaway-rule explanation."
-)
-
-print(
-    "5. Identify three evidence-based operational concerns."
+    "3. Identify three evidence-based operational concerns."
 )
