@@ -29,7 +29,7 @@ Folder structure:
             current_stock.csv
 
 Run:
-    python StackBay_Task2.py
+    python task2.py
 
 Results are saved in:
     Task2_Results/
