@@ -9,7 +9,7 @@ Sections:
     Task 2(a): Warehouse layout
     Task 2(b): Putaway and storage behavior
     Task 2(c): FIFO and pallet residence time
-    Task 2(d): Forklift workload and Digital Twin template
+    Task 2(d): Forklift workload 
 
 Required:
     pip install pandas numpy matplotlib
@@ -1694,7 +1694,7 @@ save_chart(
 
 
 # ------------------------------------------------------------
-# 2(d).8: Save forklift workload summary
+# 2(d).7: Save forklift workload summary
 # ------------------------------------------------------------
 
 summary["2d"] = {
