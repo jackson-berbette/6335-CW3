@@ -121,3 +121,5 @@ comparison = pd.DataFrame({'historical':metrics(historical),'zoned':metrics(move
 comparison['savings'] = comparison.historical-comparison.zoned
 comparison['savings_pct'] = np.where(comparison.historical!=0,100*comparison.savings/comparison.historical,np.nan)
 print(comparison.round(2).to_string())
+
+comparison.to_csv("Output/Task3d_Comparison.csv")
