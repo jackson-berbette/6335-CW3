@@ -1,0 +1,7 @@
+# Python / editor / macOS clutter
+.venv/
+__pycache__/
+.DS_Store
+
+# Task 4b generated outputs
+Output/Task4b_*
