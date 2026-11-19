@@ -108,3 +108,39 @@ Pallets come from `opening_stock.csv` and `inbound.csv`, with their ship dates f
 - **Tall cut-off:** the 72 in threshold for "tall" pallets and slots is our own choice. Change it in the Fit section of the script to test other values.
 - **Cube fill:** uses the product cube (cases × case cube), not the full pallet envelope. It is measured over put-aways.
 - **Labour hours:** move time only, from the modeling rules. They include no allowance for breaks, waiting or congestion. Task 2(d) covers those with the Digital Twin.
+
+
+# Task 4b: Slots Required by Each Storage Policy
+
+`Task4b.py` sizes the policies selected in 4a (Product-Dedicated-COL, Product-Class-COL, Product-Shared-COL, Duration-of-Stay-Target, with Today as the reference). Each policy is sized twice: with tall openings (> 72 in) protected for tall pallets, and with heights mixed. It reads the Data files and `Output/sku_velocity_and_stock.csv` (Task 1f). Run it from the casework folder: `python Task4b.py` (needs pandas, numpy, matplotlib, IPython).
+
+## Method
+
+1. **Stock per pallet.** Every pallet of the year (opening stock plus receipts) is in stock at the end of day *d* when it was received on or before *d* and ships after *d*. This gives the same daily stock as Task 1: peak 6,260 and average 5,540. Both are asserted.
+2. **Zones.** Classes are the Phase 2 reporting classes: A is the first 50% of pallets shipped, B the next 30%, C the rest. Duration-of-stay targets use each SKU's expected stay, average stock ÷ pallets shipped per day. That is the only stay information known at put-away, and `sku_zones.csv` can only express it per SKU. The targets are T1 ≤ 14 d, T2 14–30 d, T3 30–60 d and T4 > 60 d.
+3. **Slots required.** Each zone's requirement is its own peak, because a zone cannot borrow another zone's empty slots. Dedicated storage needs the sum of the SKU peaks, class storage the sum of the class peaks, and shared storage the peak of the total.
+4. **Height feasibility.** A pallet of height *h* fits any slot with `max_pallet_in` ≥ *h* (Rule 5). So the check is nested: for every pallet height *h*, the slots that take *h* must be at least the pallets of height ≥ *h* held at the zones' peaks. Protecting tall openings splits this into two pools. Pallets ≤ 72 in go only in openings ≤ 72 in (4,954 slots), and pallets > 72 in only in tall openings (3,305 slots). The margin is the smallest spare over all heights. The 106 slots that are too low for any pallet are excluded, which leaves 8,259 usable slots.
+5. **Zone footprint.** Zones are cut nearest-first, in order of slots ranked by `dist_dock_ft` and then by level. Each zone extends until it holds enough slots of every height. The farthest slot of each zone feeds the travel estimate in 4c.
+
+## Results (`Output/Task4b_Feasibility.csv`)
+
+| Policy | Tall openings | Slots required | ≤ 48 in | 49–72 in | > 72 in | Margin (slots) | Feasible |
+|---|---|---:|---:|---:|---:|---:|---|
+| Today (reference) | mixed | 6,260 | 2,528 | 1,942 | 1,907 | 1,398 | yes |
+| Product-Dedicated-COL | protected | 9,747 | 3,780 | 3,050 | 2,917 | −1,876 | **no** |
+| Product-Dedicated-COL | mixed | 9,747 | 3,780 | 3,050 | 2,917 | −1,488 | **no** |
+| Product-Class-COL | protected | 6,440 | 2,579 | 2,069 | 1,995 | 353 | yes |
+| Product-Class-COL | mixed | 6,440 | 2,579 | 2,069 | 1,995 | 1,310 | yes |
+| Product-Shared-COL | protected | 6,260 | 2,528 | 1,942 | 1,907 | 508 | yes |
+| Product-Shared-COL | mixed | 6,260 | 2,528 | 1,942 | 1,907 | 1,398 | yes |
+| Duration-of-Stay-Target | protected | 6,447 | 2,632 | 2,003 | 2,100 | 427 | yes |
+| Duration-of-Stay-Target | mixed | 6,447 | 2,632 | 2,003 | 2,100 | 1,205 | yes |
+
+The height columns are the peak of each height group, summed over zones. Each group peaks on its own day, so the columns add to more than the total. Zone-level detail (peak pallets and footprint slots by height, and distance band) is in `Output/Task4b_Slots_By_Zone_Height.csv`. The figure is `Output/Task4b_Slots_Required.png`.
+
+## Key findings
+
+- **Dedicated is infeasible.** The sum of SKU peaks (9,747) exceeds the 8,259 usable slots. Tall SKUs alone would fit (2,917 of 3,305 tall openings), but pallets ≤ 72 in would need 6,830 of the 4,954 slots that are not tall. Sizing each SKU below its own peak makes it fit only with a shared overflow, as `Output/Task4b_Dedicated_Sensitivity.csv` shows. At the 85th percentile of each SKU's daily stock, the dedicated slots fit with tall openings protected (6,988), but on 6.5% of SKU-days the SKU's stock exceeds its slots, with up to 404 overflow pallets at once.
+- **Zoning costs slots.** Class zones need 180 more slots than shared storage (6,440 vs 6,260), and duration-of-stay targets need 187 more. That is the cost of zones peaking at different times.
+- **Protecting tall openings is what makes space tight.** With protection, the binding pool is pallets ≤ 72 in in openings ≤ 72 in. Margins drop to 353 (class), 427 (duration of stay) and 508 (shared) slots, about 5–8% of need. Meanwhile about 1,200–1,400 tall openings stay empty at peak. With heights mixed, the binding pool is the tall openings and the margin is 1,200–1,400 slots. Today, on the peak day (15 July 2025), 812 pallets ≤ 72 in sit in tall openings (`Output/Task4b_Today_Peak_Day_Fit.csv`). Partial protection, which reserves only part of the tall openings, sits between the two cases and is worth testing in Task 5.
+- **Class A needs reach.** To hold its 858 tall pallets, the class A zone has to stretch to 233 ft and take 2,045 slots, against a peak of 1,844 pallets.
