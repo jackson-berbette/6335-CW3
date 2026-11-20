@@ -87,7 +87,7 @@ def generate_dedicated(folder_name, protect_tall):
 
     # Task 4b allocates dedicated SKU capacity in this priority order.
     priority = sku_info.copy()
-    priority["slots_per_move"] = priority.peak_stock_pallets / (
+    priority["slots_per_move"] = priority.avg_stock_pallets / (
         2 * priority.pallets_shipped.replace(0, np.nan)
     )
     priority = priority.sort_values(["slots_per_move", "sku_id"], na_position="last")
@@ -101,7 +101,9 @@ def generate_dedicated(folder_name, protect_tall):
             else:
                 eligible &= max_heights <= TALL_THRESHOLD_IN
 
-        required = int(sku.peak_stock_pallets)
+        # Reserve enough dedicated slots for average inventory,
+        # rounded up to a whole pallet position.
+        required = max(1, int(np.ceil(sku.avg_stock_pallets)))
         chosen = np.flatnonzero(eligible)[:required]
         free[chosen] = False
         assignments.loc[chosen, "zone"] = sku.sku_id
@@ -115,6 +117,21 @@ def generate_dedicated(folder_name, protect_tall):
     preferences = sku_preferences([[sku_id] for sku_id in sku_info.sku_id])
     shortfalls = pd.DataFrame(shortfall_rows)
     save_policy(folder_name, assignments, preferences, shortfalls)
+    print(f"  Unmet dedicated slots: {shortfalls.shortfall.sum():,}")
+
+    # Verify every SKU received at least one dedicated slot.
+    unassigned_skus = shortfalls.loc[
+        shortfalls.allocated_slots == 0, "sku_id"
+    ]
+
+    if not unassigned_skus.empty:
+        raise ValueError(
+            f"{len(unassigned_skus)} SKUs received no dedicated slots. "
+            "The policy cannot be exported with valid zone references."
+        )
+
+    print(f"  Dedicated slots required: {shortfalls.required_slots.sum():,}")
+    print(f"  Dedicated slots allocated: {shortfalls.allocated_slots.sum():,}")
     print(f"  Unmet dedicated slots: {shortfalls.shortfall.sum():,}")
 
 
