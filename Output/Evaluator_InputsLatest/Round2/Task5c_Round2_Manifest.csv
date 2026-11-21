@@ -1,0 +1,4 @@
+design,zones,slots_in_zones,slots_blank,zone_sizes,change
+P2_Class_COL_v2,3,8259,106,A: 2145; B: 2047; C: 4067,"Round 1: B peaked at 99.5%, C at 62.6%. A +100 and B +250 slots, taken from C."
+P5b_DoS_Zones_v2,4,8259,106,T1 (up to 14 d): 1761; T2 (14-30 d): 2804; T3 (30-60 d): 1577; T4 (over 60 d): 2117,"Round 1: T2 99.5%, T4 61.8%, 0.4% last resort. T2 +300 and T3 +100 slots, taken from T4; T2 overflow now T2 -> T3 -> T4 (was T2 -> T3 -> T1)."
+P5b_DoS_Zones_v2_TallProtected,8,8259,106,T1 (up to 14 d) SHORT: 1025; T1 (up to 14 d) TALL: 736; T2 (14-30 d) SHORT: 1679; T2 (14-30 d) TALL: 1125; T3 (30-60 d) SHORT: 941; T3 (30-60 d) TALL: 636; T4 (over 60 d) SHORT: 1309; T4 (over 60 d) TALL: 808,"P5b_v2 zones split into TALL (openings > 72 in) and SHORT parts: tall pallets use TALL parts only; short pallets use their SHORT part, the next zone's SHORT part, and their own TALL part only as third choice. Aims to recover height fit, as P3 did (15.4 in)."
