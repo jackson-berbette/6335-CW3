@@ -21,10 +21,11 @@ Designs
   P5   Duration-of-Stay-Target                 4 stay targets nearest first; zone_1 = target, zone_2 = NEAREST
   P5b  Duration-of-Stay zones (variant)        same zones, neighbouring stay zones as fallback
 
-Slot labels used besides the design zones
+Slots kept out of every zone (written with a BLANK zone, as the evaluator guide asks)
   UNUSABLE    slots too low for any pallet (kept out of every zone, as in Task 4b)
   UNASSIGNED  usable slots that no SKU lists (P1, P3): reached only by the evaluator's
-              fall-back on today's habit
+              last-resort fall-back on today's habit
+  These two names are used inside this script and in the manifest only.
 """
 from pathlib import Path
 
@@ -127,7 +128,14 @@ def save_design(folder_name, policy, slot_assignments, sku_assignments, approxim
     check_design(slot_assignments, sku_assignments)
     folder = OUTPUT / folder_name
     folder.mkdir(exist_ok=True)
-    slot_assignments.to_csv(folder / "slot_zones.csv", index=False)
+    # The evaluator guide: "leave zone blank to keep a slot out of every zone".
+    # UNUSABLE / UNASSIGNED are internal labels only; they are written as blanks.
+    to_write = slot_assignments.copy()
+    outside = to_write.zone.isin([UNUSABLE, UNASSIGNED])
+    to_write["fill_order"] = to_write["fill_order"].astype("Int64")
+    to_write.loc[outside, "fill_order"] = pd.NA
+    to_write.loc[outside, "zone"] = ""
+    to_write.to_csv(folder / "slot_zones.csv", index=False)
     sku_assignments.to_csv(folder / "sku_zones.csv", index=False)
     if shortfalls is not None:
         shortfalls.to_csv(folder / "allocation_shortfalls.csv", index=False)
@@ -299,4 +307,3 @@ save_design("P5b_DoS_Zones", "Duration-of-Stay zones (variant of P5)",
 
 pd.DataFrame(manifest).to_csv(OUTPUT / "Task5a_Design_Manifest.csv", index=False)
 print(f"\nAll evaluator files and the design manifest saved to: {OUTPUT}")
-
