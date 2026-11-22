@@ -15,6 +15,9 @@ Round-2 designs written by this script (same inputs and rules as Task5a.py):
   P5b_DoS_Zones_v2_TallProtected  P5b_v2 zones, each split into a TALL part (openings > 72 in)
                                   and a SHORT part; tall pallets use TALL parts only, short
                                   pallets use SHORT parts first and a TALL part only as last choice
+  P5_DoS_Target_v2_TallProtected_NEAREST
+                                  same zones as the line above; third choice = NEAREST (added
+                                  22 Nov 2026 once the evaluator accepted NEAREST)
 
 Inputs : Data/slots.csv, Data/skus.csv, Output/CW3P1T1_VelocityStock_WembyFanClub.csv
 Outputs: Output/Evaluator_Inputs/Round2/<design>/slot_zones.csv, sku_zones.csv
@@ -100,7 +103,7 @@ def save(name, zone, prefs, note):
     inside = sz.zone != ""
     sz.loc[inside, "fill_order"] = sz[inside].groupby("zone").cumcount() + 1   # nearest first
     # checks: every SKU has a first choice, no gaps, every named zone holds slots
-    named = set(prefs[["zone_1", "zone_2", "zone_3"]].stack()) - {""}
+    named = set(prefs[["zone_1", "zone_2", "zone_3"]].stack()) - {"", "NEAREST"}
     missing = named - set(sz.zone[inside])
     assert not missing, f"{name}: zones with no slots: {missing}"
     assert (prefs.zone_1 != "").all() and len(prefs) == len(sku_info) and len(sz) == len(slots)
@@ -157,6 +160,22 @@ save("P5b_DoS_Zones_v2_TallProtected", zone_hp, preferences(prefs_hp),
      "short pallets use their SHORT part, the next zone's SHORT part, and their own TALL part only as "
      "third choice. Aims to recover height fit, as P3 did (15.4 in).")
 
+# ---------------------------------------------------------------------------
+# P5_DoS_Target_v2_TallProtected_NEAREST (added 22 Nov, after the evaluator enabled NEAREST):
+# the best design's zones, with NEAREST as the final fallback instead of a fixed zone, which is
+# the brief's form of a Target policy. Tall pallets: own TALL target, next zone's TALL, then NEAREST.
+# Short pallets: own SHORT target, next zone's SHORT, then NEAREST.
+# ---------------------------------------------------------------------------
+prefs_hpn = []
+for s, is_tall in zip(sku_info["stay"], sku_info["tall"]):
+    order = stay_fallback_v2[s]
+    part = "TALL" if is_tall else "SHORT"
+    p = [f"{order[0]} {part}", f"{order[1]} {part}"]
+    prefs_hpn.append([z for z in p if z in existing] + ["NEAREST"])
+save("P5_DoS_Target_v2_TallProtected_NEAREST", zone_hp, preferences(prefs_hpn),
+     "Best design's zones (P5b_v2 split into TALL/SHORT parts) with NEAREST as the final fallback: "
+     "zone_1 = own stay target (height part), zone_2 = next stay zone (same height part), "
+     "zone_3 = NEAREST. Brief's form of a Target policy; tests whether NEAREST beats a fixed third choice.")
+
 pd.DataFrame(manifest).to_csv(OUTPUT / "Task5c_Round2_Manifest.csv", index=False)
 print(f"\nRound-2 design files and manifest saved to: {OUTPUT}")
-
